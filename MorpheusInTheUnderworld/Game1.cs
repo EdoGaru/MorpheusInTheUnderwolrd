@@ -2,6 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
+using MonoGame.Extended.BitmapFonts;
+
 
 namespace MorpheusInTheUnderworld
 {
@@ -12,12 +15,12 @@ namespace MorpheusInTheUnderworld
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        FramesPerSecondCounter fps;
+        BitmapFont bitmapFont;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            Console.WriteLine("New COmmit");
         }
 
         /// <summary>
@@ -28,7 +31,7 @@ namespace MorpheusInTheUnderworld
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            fps = new MonoGame.Extended.FramesPerSecondCounter();
 
             base.Initialize();
         }
@@ -41,7 +44,7 @@ namespace MorpheusInTheUnderworld
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            bitmapFont = Content.Load<BitmapFont>("Fonts/fixedsys");
         }
 
         /// <summary>
@@ -63,6 +66,7 @@ namespace MorpheusInTheUnderworld
                 Exit();
 
 
+            fps.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -73,7 +77,13 @@ namespace MorpheusInTheUnderworld
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            Viewport viewport = GraphicsDevice.Viewport;
 
+            fps.Draw(gameTime);
+            string fpsText = "FPS: " + fps.FramesPerSecond;
+            spriteBatch.Begin();
+            spriteBatch.DrawString(bitmapFont, fpsText, new Vector2(viewport.Width - (bitmapFont.MeasureString(fpsText).Width), 0), Color.White);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
