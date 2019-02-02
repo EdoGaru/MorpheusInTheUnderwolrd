@@ -17,6 +17,7 @@ namespace MorpheusInTheUnderworld
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            Console.WriteLine("New COmmit");
         }
 
         /// <summary>
