@@ -17,7 +17,7 @@ namespace MorpheusInTheUnderworld.Screens
     public abstract class GameScreen : Screen
     {
         private readonly IServiceProvider _serviceProvider;
-        private SpriteBatch _spriteBatch;
+        private SpriteBatch spriteBatch;
 
         /// <summary>
         /// Each GameScreen is indivually having their own ContentManager
@@ -35,7 +35,10 @@ namespace MorpheusInTheUnderworld.Screens
         public override void Initialize()
         {
             base.Initialize();
+            var graphicsDeviceService = (IGraphicsDeviceService)_serviceProvider.GetService(typeof(IGraphicsDeviceService));
+            GraphicsDevice = graphicsDeviceService.GraphicsDevice;
             Content = new ContentManager(_serviceProvider, "Content");
+            spriteBatch = new SpriteBatch(GraphicsDevice);
         }
         public override void UnloadContent()
         {
@@ -46,7 +49,7 @@ namespace MorpheusInTheUnderworld.Screens
         public override void Dispose()
         {
             base.Dispose();
-            _spriteBatch.Dispose();
+            spriteBatch.Dispose();
         }
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)

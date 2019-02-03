@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Classes\MenuItem.cs" />
+    <Compile Include="Classes\MusicPlayer.cs" />
     <Compile Include="FMOD\fmod.cs" />
     <Compile Include="FMOD\fmod_dsp.cs" />
     <Compile Include="FMOD\fmod_errors.cs" />
@@ -64,8 +65,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MonoGame.Extended.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MonoGame.Extended.Entities.1.1.0\lib\portable-net45+win8+wpa81\MonoGame.Extended.Entities.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="MonoGame.Extended.Graphics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MonoGame.Extended.Graphics.1.1.0\lib\portable-net45+win8+wpa81\MonoGame.Extended.Graphics.dll</HintPath>

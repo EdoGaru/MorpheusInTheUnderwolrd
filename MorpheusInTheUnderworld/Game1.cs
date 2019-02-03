@@ -6,6 +6,8 @@ using MonoGame.Extended;
 using MonoGame.Extended.BitmapFonts;
 using MonoGame.Extended.Screens;
 using MorpheusInTheUnderworld.Screens;
+using MorpheusInTheUnderworld.Classes;
+using System.IO;
 
 namespace MorpheusInTheUnderworld
 {
@@ -20,6 +22,7 @@ namespace MorpheusInTheUnderworld
         // A FramePerSecondCounter used only in Debug Mode.
         FramesPerSecondCounter fps;
 
+        MusicPlayer musicPlayer;
         BitmapFont bitmapFont;
         public Game1()
         {
@@ -27,7 +30,15 @@ namespace MorpheusInTheUnderworld
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            // user needs to register all the Screens that have been created!
+            musicPlayer = new MusicPlayer();
+            musicPlayer.Initialize();
+
+            string currentDir = Directory.GetCurrentDirectory();
+            musicPlayer.AddSong(currentDir + "\\Kickin.mp3");
+            musicPlayer.LoadSong(0, true);
+            musicPlayer.Play();
+            
+            // User needs to register all the Screens that have been created!
             ScreenGameComponent screenGameComponent = new ScreenGameComponent(this);
             screenGameComponent.Register<Screen>(new MainMenuScreen(this.Services));
             screenGameComponent.Register<Screen>(new GameplayScreen(this.Services));
