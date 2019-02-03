@@ -4,7 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using MonoGame.Extended.BitmapFonts;
-
+using MonoGame.Extended.Screens;
+using MorpheusInTheUnderworld.Screens;
 
 namespace MorpheusInTheUnderworld
 {
@@ -15,12 +16,23 @@ namespace MorpheusInTheUnderworld
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        // A FramePerSecondCounter used only in Debug Mode.
         FramesPerSecondCounter fps;
+
         BitmapFont bitmapFont;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            IsMouseVisible = true;
+
+            // user needs to register all the Screens that have been created!
+            ScreenGameComponent screenGameComponent = new ScreenGameComponent(this);
+            screenGameComponent.Register<Screen>(new MainMenuScreen(this.Services));
+            screenGameComponent.Register<Screen>(new GameplayScreen(this.Services));
+            Components.Add(screenGameComponent);
+            
         }
 
         /// <summary>
@@ -79,11 +91,14 @@ namespace MorpheusInTheUnderworld
             GraphicsDevice.Clear(Color.CornflowerBlue);
             Viewport viewport = GraphicsDevice.Viewport;
 
+            // Only draw if we are Debugging
+            #if DEBUG
             fps.Draw(gameTime);
             string fpsText = "FPS: " + fps.FramesPerSecond;
             spriteBatch.Begin();
             spriteBatch.DrawString(bitmapFont, fpsText, new Vector2(viewport.Width - (bitmapFont.MeasureString(fpsText).Width), 0), Color.White);
             spriteBatch.End();
+            #endif
 
             base.Draw(gameTime);
         }
