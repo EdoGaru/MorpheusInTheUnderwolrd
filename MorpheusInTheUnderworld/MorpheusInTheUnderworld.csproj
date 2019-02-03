@@ -103,6 +103,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FMOD\fmod.dll" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

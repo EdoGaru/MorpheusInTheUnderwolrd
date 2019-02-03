@@ -27,6 +27,10 @@ namespace MorpheusInTheUnderworld
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 1024; // set screen dimensions 4:3 as per Bark's sketch
+            graphics.PreferredBackBufferHeight = 768;
+            graphics.ApplyChanges();
+
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 

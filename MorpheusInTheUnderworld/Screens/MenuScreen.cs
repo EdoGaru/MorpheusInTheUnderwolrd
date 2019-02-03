@@ -41,7 +41,7 @@ namespace MorpheusInTheUnderworld.Screens
         {
             var menuItem = new MenuItem(Font, text)
             {
-                Position = new Vector2(300, 200 + 32 * MenuItems.Count),
+                Position = new Vector2(400, 200 + 32 * MenuItems.Count),
                 Action = action
             };
 
