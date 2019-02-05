@@ -15,33 +15,23 @@ namespace MorpheusInTheUnderworld.Screens
     /// <summary>
     /// This abstract class is used among all the MenuScreen.
     /// </summary>
-    public abstract class MenuScreen : Screen
+    public abstract class MenuScreen : GameScreen
     {
-        private readonly IServiceProvider _serviceProvider;
         private SpriteBatch _spriteBatch;
 
-        protected MenuScreen(IServiceProvider serviceProvider)
+        protected MenuScreen(Game game) : base(game)
         {
-            _serviceProvider = serviceProvider;
-            MenuItems = new List<MenuItem>();
+            MenuItems = new List<MenuItem>();   
         }
 
         public List<MenuItem> MenuItems { get; set; }
         protected BitmapFont Font { get; private set; }
-        /// <summary>
-        /// Providing a ContentManager for each MenuScreen
-        /// </summary>
-        protected ContentManager Content { get; private set; }
-        /// <summary>
-        /// Providing a GraphicsDevice for each MenuScreen
-        /// </summary>
-        protected GraphicsDevice GraphicsDevice { get; set; }
 
         protected void AddMenuItem(string text, Action action)
         {
             var menuItem = new MenuItem(Font, text)
             {
-                Position = new Vector2(300, 200 + 32 * MenuItems.Count),
+                Position = new Vector2(400, 200 + 32 * MenuItems.Count),
                 Action = action
             };
 
@@ -51,8 +41,7 @@ namespace MorpheusInTheUnderworld.Screens
         public override void Initialize()
         {
             base.Initialize();
-
-            Content = new ContentManager(_serviceProvider, "Content");
+            
         }
 
         public override void Dispose()
@@ -65,27 +54,23 @@ namespace MorpheusInTheUnderworld.Screens
         public override void LoadContent()
         {
             base.LoadContent();
-
-            var graphicsDeviceService = (IGraphicsDeviceService)_serviceProvider.GetService(typeof(IGraphicsDeviceService));
-            GraphicsDevice = graphicsDeviceService.GraphicsDevice;
+            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Font = Content.Load<BitmapFont>("Fonts/fixedsys");
         }
-
+        /*
         public override void UnloadContent()
         {
             Content.Unload();
             Content.Dispose();
 
             base.UnloadContent();
-        }
-
+        }*/
+        
         private MouseState _previousState;
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
-
             var mouseState = Mouse.GetState();
             var isPressed = mouseState.LeftButton == ButtonState.Released && _previousState.LeftButton == ButtonState.Pressed;
 
@@ -108,7 +93,6 @@ namespace MorpheusInTheUnderworld.Screens
 
         public override void Draw(GameTime gameTime)
         {
-            base.Draw(gameTime);
 
             _spriteBatch.Begin();
 

@@ -1,6 +1,4 @@
 ﻿
-using System;
-
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +6,9 @@ using System.Threading.Tasks;
 using MonoGame.Extended;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.Entities;
-
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended.Input;
 namespace MorpheusInTheUnderworld.Screens
 {
     /// <summary>
@@ -16,7 +16,7 @@ namespace MorpheusInTheUnderworld.Screens
     /// </summary>
     class GameplayScreen : GameScreen
     {
-        public GameplayScreen(IServiceProvider serviceProvider) : base(serviceProvider) 
+        public GameplayScreen(Game game) : base(game) 
         {
         }
 
@@ -24,14 +24,18 @@ namespace MorpheusInTheUnderworld.Screens
         {
             base.Initialize();
         }
-
+        public override void LoadContent()
+        {
+            base.LoadContent();
+            
+        }
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            base.Update(gameTime);
+            if(KeyboardExtended.GetState().WasKeyJustDown(Keys.Escape))
+                ScreenManager.LoadScreen(new MainMenuScreen(Game));
         }
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            base.Draw(gameTime);
         }
     }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/Edo/Documents/Visual Studio 2013/Projects/MorpheusInTheUnderwolrd/MorpheusInTheUnderworld/Content/Fonts/fixedsys.fnt</SourceFile>
+  <SourceTime>2019-02-02T14:50:21.3840025-08:00</SourceTime>
+  <DestFile>C:/Users/Edo/Documents/Visual Studio 2013/Projects/MorpheusInTheUnderwolrd/MorpheusInTheUnderworld/Content/bin/Windows/Fonts/fixedsys.xnb</DestFile>
+  <DestTime>2019-02-02T14:52:55.0207901-08:00</DestTime>
+  <Importer>BitmapFontImporter</Importer>
+  <ImporterTime>2019-02-02T13:42:12.9021548-08:00</ImporterTime>
+  <Processor>BitmapFontProcessor</Processor>
+  <ProcessorTime>2019-02-02T13:42:12.9021548-08:00</ProcessorTime>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

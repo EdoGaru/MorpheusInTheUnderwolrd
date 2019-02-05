@@ -8,6 +8,7 @@ using MonoGame.Extended.Screens;
 using MorpheusInTheUnderworld.Screens;
 using MorpheusInTheUnderworld.Classes;
 using System.IO;
+using MonoGame.Extended.Screens.Transitions;
 
 namespace MorpheusInTheUnderworld
 {
@@ -24,9 +25,16 @@ namespace MorpheusInTheUnderworld
 
         MusicPlayer musicPlayer;
         BitmapFont bitmapFont;
+
+        private readonly ScreenManager screenManager;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 1024; // set screen dimensions 4:3 as per Bark's sketch
+            graphics.PreferredBackBufferHeight = 768;
+            graphics.ApplyChanges();
+
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
@@ -37,13 +45,10 @@ namespace MorpheusInTheUnderworld
             musicPlayer.AddSong(currentDir + "\\Kickin.mp3");
             musicPlayer.LoadSong(0, true);
             musicPlayer.Play();
-            
+
             // User needs to register all the Screens that have been created!
-            ScreenGameComponent screenGameComponent = new ScreenGameComponent(this);
-            screenGameComponent.Register<Screen>(new MainMenuScreen(this.Services));
-            screenGameComponent.Register<Screen>(new GameplayScreen(this.Services));
-            Components.Add(screenGameComponent);
-            
+            screenManager = Components.Add<ScreenManager>();
+
         }
 
         /// <summary>
@@ -68,6 +73,7 @@ namespace MorpheusInTheUnderworld
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             bitmapFont = Content.Load<BitmapFont>("Fonts/fixedsys");
+            screenManager.LoadScreen(new MainMenuScreen(this), new FadeTransition(GraphicsDevice, Color.Black, 0.5f));
         }
 
         /// <summary>
@@ -85,10 +91,7 @@ namespace MorpheusInTheUnderworld
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-
+            
             fps.Update(gameTime);
             base.Update(gameTime);
         }
