@@ -1,0 +1,18 @@
+﻿# This memo will hold notes things programmers should
+# look carefully when trying to modify the codes in this game.
+
+(-) Topic
+(//) TODO
+(>) Note
+(*) Obligatory
+( ) Continue on next line
+
+-SCREENS
+    >(REMEMBER DONT INHERIT FROM GameScreen class directly, look at "Screens/MenuScreens" for example)
+	 This is if you plan to have a ContenManager for this Screen without unloading the GLOBAL ContentManager
+	 Which i highly recommend doing this way.
+
+	>To choose a name for the Content Manager of a child Screen class, you use [fileName]Content.
+
+	*All the screens need to implement the method UnloadContent.
+

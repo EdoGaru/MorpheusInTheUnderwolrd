@@ -41,11 +41,6 @@ namespace MorpheusInTheUnderworld
             musicPlayer = new MusicPlayer();
             musicPlayer.Initialize();
 
-            string currentDir = Directory.GetCurrentDirectory();
-            musicPlayer.AddSong(currentDir + "\\Kickin.mp3");
-            musicPlayer.LoadSong(0, true);
-            musicPlayer.Play();
-
             // User needs to register all the Screens that have been created!
             screenManager = Components.Add<ScreenManager>();
 

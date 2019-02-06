@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Edo/Documents/Visual Studio 2013/Projects/MorpheusInTheUnderwolrd/MorpheusInTheUnderworld/Content/Graphics/character_64x128.png</SourceFile>
+  <SourceFile>C:/Users/Edo/Documents/Visual Studio 2013/Projects/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/character_64x128.png</SourceFile>
   <SourceTime>2019-02-02T13:46:14.8769949-08:00</SourceTime>
-  <DestFile>C:/Users/Edo/Documents/Visual Studio 2013/Projects/MorpheusInTheUnderwolrd/MorpheusInTheUnderworld/Content/bin/Windows/Graphics/character_64x128.xnb</DestFile>
-  <DestTime>2019-02-04T14:34:16.062901-08:00</DestTime>
+  <DestFile>C:/Users/Edo/Documents/Visual Studio 2013/Projects/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/bin/Windows/Graphics/character_64x128.xnb</DestFile>
+  <DestTime>2019-02-04T19:08:15.6361908-08:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T07:05:36-08:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

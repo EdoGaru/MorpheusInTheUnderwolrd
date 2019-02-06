@@ -9,6 +9,11 @@ using MonoGame.Extended.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Input;
+using Microsoft.Xna.Framework.Graphics;
+using MorpheusInTheUnderworld.Classes.Systems;
+using MonoGame.Extended.ViewportAdapters;
+using Microsoft.Xna.Framework.Content;
+
 namespace MorpheusInTheUnderworld.Screens
 {
     /// <summary>
@@ -16,6 +21,14 @@ namespace MorpheusInTheUnderworld.Screens
     /// </summary>
     class GameplayScreen : GameScreen
     {
+        private World world;
+        private SpriteBatch spriteBatch;
+        private OrthographicCamera orthographicCamera;
+        private Viewport viewport;
+        private EntityFactory entityFactory;
+
+        ContentManager gameplayScreenContent;
+
         public GameplayScreen(Game game) : base(game) 
         {
         }
@@ -23,12 +36,42 @@ namespace MorpheusInTheUnderworld.Screens
         public override void Initialize()
         {
             base.Initialize();
+            viewport = GraphicsDevice.Viewport; 
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            var viewportAdapter = new BoxingViewportAdapter(Game.Window, GraphicsDevice, viewport.Width, viewport.Height);
+            orthographicCamera = new OrthographicCamera(viewportAdapter);
+            gameplayScreenContent = new ContentManager(Game.Services, "Content");
+
+
+            world = new WorldBuilder()
+                     .AddSystem(new WorldSystem())
+                     .AddSystem(new PlayerSystem())
+                     .AddSystem(new RenderSystem(spriteBatch, orthographicCamera))
+                     .AddSystem(new TilesRenderSystem(spriteBatch))
+                     .Build();
+
+            Game.Components.Add(world);
+
+            entityFactory = new EntityFactory(world, gameplayScreenContent);
+            entityFactory.CreatePlayer(Vector2.Zero);
+            for (int i = 0; i < 50; i++)
+            {
+                entityFactory.CreateTile32(new Vector2(i * 32, viewport.Height / 2));
+            }
         }
         public override void LoadContent()
         {
             base.LoadContent();
-            
         }
+
+        public override void UnloadContent()
+        {
+            base.UnloadContent();
+
+            Game.Components.Remove(world);
+            gameplayScreenContent.Unload();
+        }
+
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
             if(KeyboardExtended.GetState().WasKeyJustDown(Keys.Escape))

@@ -17,55 +17,57 @@ namespace MorpheusInTheUnderworld.Screens
     /// </summary>
     public abstract class MenuScreen : GameScreen
     {
-        private SpriteBatch _spriteBatch;
+        // MenuScreen provides child classes a spritebatch.
+        public SpriteBatch spriteBatch;
+
+        public List<MenuItem> MenuItems { get; set; }
+
+        // MenuScreen also provides child classes a Font.
+        protected BitmapFont Font { get; private set; }
+
+        // Our ContentManager for MenuScreens;
+        protected ContentManager mainMenuContent { get; set; }
+
+        public  Viewport Viewport { get; set; }
 
         protected MenuScreen(Game game) : base(game)
         {
             MenuItems = new List<MenuItem>();   
-        }
 
-        public List<MenuItem> MenuItems { get; set; }
-        protected BitmapFont Font { get; private set; }
-
-        protected void AddMenuItem(string text, Action action)
-        {
-            var menuItem = new MenuItem(Font, text)
-            {
-                Position = new Vector2(400, 200 + 32 * MenuItems.Count),
-                Action = action
-            };
-
-            MenuItems.Add(menuItem);
         }
 
         public override void Initialize()
         {
             base.Initialize();
-            
         }
 
         public override void Dispose()
         {
             base.Dispose();
 
-            _spriteBatch.Dispose();
+            spriteBatch.Dispose();
         }
 
         public override void LoadContent()
         {
             base.LoadContent();
-            
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-            Font = Content.Load<BitmapFont>("Fonts/fixedsys");
+            mainMenuContent = new ContentManager(Game.Services, "Content");
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            Viewport = GraphicsDevice.Viewport;
+
+            Font = mainMenuContent.Load<BitmapFont>("Fonts/fixedsys");
         }
-        /*
+        
+        /// <summary>
+        /// This method no need to be overrided in child classes
+        /// </summary>
         public override void UnloadContent()
         {
-            Content.Unload();
-            Content.Dispose();
+            mainMenuContent.Unload();
+            mainMenuContent.Dispose();
 
             base.UnloadContent();
-        }*/
+        }
         
         private MouseState _previousState;
 
@@ -94,12 +96,24 @@ namespace MorpheusInTheUnderworld.Screens
         public override void Draw(GameTime gameTime)
         {
 
-            _spriteBatch.Begin();
+            spriteBatch.Begin();
 
             foreach (var menuItem in MenuItems)
-                menuItem.Draw(_spriteBatch);
+                menuItem.Draw(spriteBatch);
 
-            _spriteBatch.End();
+            spriteBatch.End();
         }
+
+        protected void AddMenuItem(string text, Action action)
+        {
+            var menuItem = new MenuItem(Font, text)
+            {
+                Position = new Vector2(400, 200 + 32 * MenuItems.Count),
+                Action = action
+            };
+
+            MenuItems.Add(menuItem);
+        }
+
     }
 }
