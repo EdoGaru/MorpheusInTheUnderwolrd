@@ -43,7 +43,7 @@ namespace MorpheusInTheUnderworld
             musicPlayer = new MusicPlayer();
             musicPlayer.Initialize();
             string currentDir = Directory.GetCurrentDirectory();
-            musicPlayer.AddSong(currentDir + "\\117BPMKickin.mp3");
+            musicPlayer.AddSong(currentDir + "\\Kickin.mp3");
             musicPlayer.LoadSong(0, true);
             musicPlayer.Play();
 

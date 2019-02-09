@@ -4,23 +4,13 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Edo/Documents/Visual Studio 2013/Projects/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Fonts/fixedsys.fnt</File>
-    <File>C:/Users/Edo/Documents/Visual Studio 2013/Projects/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Fonts/fixedsys_0.png</File>
-    <File>C:/Users/Edo/Documents/Visual Studio 2013/Projects/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Fonts/MainFont.spritefont</File>
-    <File>C:/Users/Edo/Documents/Visual Studio 2013/Projects/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/circle32.png</File>
-    <File>C:/Users/Edo/Documents/Visual Studio 2013/Projects/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/hero.png</File>
-    <File>C:/Users/Edo/Documents/Visual Studio 2013/Projects/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/minimap_tile.png</File>
-    <File>C:/Users/Edo/Documents/Visual Studio 2013/Projects/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/tile_16x16.png</File>
-    <File>C:/Users/Edo/Documents/Visual Studio 2013/Projects/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/tile_32x32.png</File>
+    <File>C:/Users/Ed/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Fonts/fixedsys.fnt</File>
+    <File>C:/Users/Ed/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Fonts/fixedsys_0.png</File>
+    <File>C:/Users/Ed/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Fonts/MainFont.spritefont</File>
+    <File>C:/Users/Ed/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/circle32.png</File>
+    <File>C:/Users/Ed/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/hero.png</File>
+    <File>C:/Users/Ed/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/minimap_tile.png</File>
+    <File>C:/Users/Ed/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/tile_16x16.png</File>
+    <File>C:/Users/Ed/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/tile_32x32.png</File>
   </SourceFiles>
-  <DestFiles>
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-  </DestFiles>
 </SourceFileCollection>
