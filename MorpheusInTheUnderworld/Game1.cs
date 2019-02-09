@@ -26,6 +26,8 @@ namespace MorpheusInTheUnderworld
         MusicPlayer musicPlayer;
         BitmapFont bitmapFont;
 
+        Texture2D circle32;
+
         private readonly ScreenManager screenManager;
 
         public Game1()
@@ -40,6 +42,10 @@ namespace MorpheusInTheUnderworld
 
             musicPlayer = new MusicPlayer();
             musicPlayer.Initialize();
+            string currentDir = Directory.GetCurrentDirectory();
+            musicPlayer.AddSong(currentDir + "\\117BPMKickin.mp3");
+            musicPlayer.LoadSong(0, true);
+            musicPlayer.Play();
 
             // User needs to register all the Screens that have been created!
             screenManager = Components.Add<ScreenManager>();
@@ -69,6 +75,7 @@ namespace MorpheusInTheUnderworld
             spriteBatch = new SpriteBatch(GraphicsDevice);
             bitmapFont = Content.Load<BitmapFont>("Fonts/fixedsys");
             screenManager.LoadScreen(new MainMenuScreen(this), new FadeTransition(GraphicsDevice, Color.Black, 0.5f));
+            circle32 = Content.Load<Texture2D>("Graphics/circle32");
         }
 
         /// <summary>
@@ -78,6 +85,7 @@ namespace MorpheusInTheUnderworld
         protected override void UnloadContent()
         {
         }
+
 
         /// <summary>
         /// Allows the game to run logic such as updating the world,
@@ -91,6 +99,8 @@ namespace MorpheusInTheUnderworld
             base.Update(gameTime);
         }
 
+
+        float elapsed;
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -100,14 +110,30 @@ namespace MorpheusInTheUnderworld
             GraphicsDevice.Clear(Color.CornflowerBlue);
             Viewport viewport = GraphicsDevice.Viewport;
 
-            // Only draw if we are Debugging
+            float bpm = 117;
+            float bps = (60f / bpm);
+            elapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+           // Only draw if we are Debugging
             #if DEBUG
             fps.Draw(gameTime);
             string fpsText = "FPS: " + fps.FramesPerSecond;
+            float fpsTextWidth = bitmapFont.MeasureString(fpsText).Width;
             spriteBatch.Begin();
-            spriteBatch.DrawString(bitmapFont, fpsText, new Vector2(viewport.Width - (bitmapFont.MeasureString(fpsText).Width), 0), Color.White);
+            spriteBatch.DrawString(bitmapFont, fpsText, new Vector2(viewport.Width - fpsTextWidth, 0), Color.White);
             spriteBatch.End();
-            #endif
+            if(elapsed > bps)
+            {
+
+                elapsed = 0f;
+                spriteBatch.Begin();
+
+                spriteBatch.Draw(circle32, new Rectangle((int)(viewport.Width - fpsTextWidth - 32), 8, 16, 16), Color.Red);
+
+                spriteBatch.End();
+
+            }
+#endif
 
             base.Draw(gameTime);
         }

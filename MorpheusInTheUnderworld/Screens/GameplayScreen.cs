@@ -13,6 +13,10 @@ using Microsoft.Xna.Framework.Graphics;
 using MorpheusInTheUnderworld.Classes.Systems;
 using MonoGame.Extended.ViewportAdapters;
 using Microsoft.Xna.Framework.Content;
+using RogueSharp;
+using RogueSharp.MapCreation;
+using MorpheusInTheUnderworld.Classes;
+using System.IO;
 
 namespace MorpheusInTheUnderworld.Screens
 {
@@ -28,6 +32,10 @@ namespace MorpheusInTheUnderworld.Screens
         private EntityFactory entityFactory;
 
         ContentManager gameplayScreenContent;
+        private IMap map;
+
+        Texture2D minimapTile;
+        Texture2D blackTexture;
 
         public GameplayScreen(Game game) : base(game) 
         {
@@ -45,9 +53,11 @@ namespace MorpheusInTheUnderworld.Screens
 
             world = new WorldBuilder()
                      .AddSystem(new WorldSystem())
-                     .AddSystem(new PlayerSystem())
+                     .AddSystem(new CameraSystem(orthographicCamera))
+                     .AddSystem(new PlayerSystem(orthographicCamera))
+                     .AddSystem(new MapRenderSystem(spriteBatch, gameplayScreenContent))
                      .AddSystem(new RenderSystem(spriteBatch, orthographicCamera))
-                     .AddSystem(new TilesRenderSystem(spriteBatch))
+                     .AddSystem(new TilesRenderSystem(spriteBatch, orthographicCamera))
                      .Build();
 
             Game.Components.Add(world);
@@ -58,10 +68,14 @@ namespace MorpheusInTheUnderworld.Screens
             {
                 entityFactory.CreateTile32(new Vector2(i * 32, viewport.Height / 2));
             }
+            entityFactory.CreateMap(new Vector2(viewport.Width - (viewport.Width / 4), viewport.Height - 200), "Content/Map/map_1.txt");
+
         }
         public override void LoadContent()
         {
             base.LoadContent();
+            minimapTile = gameplayScreenContent.Load<Texture2D>("Graphics/minimap_tile");
+            blackTexture = gameplayScreenContent.Load<Texture2D>("Graphics/tile_16x16");
         }
 
         public override void UnloadContent()
@@ -79,6 +93,12 @@ namespace MorpheusInTheUnderworld.Screens
         }
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+
+            
+
+            spriteBatch.End();
+
         }
     }
 }

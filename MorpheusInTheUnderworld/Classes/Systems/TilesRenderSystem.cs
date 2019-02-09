@@ -20,14 +20,16 @@ namespace MorpheusInTheUnderworld.Classes.Systems
     public class TilesRenderSystem : EntityDrawSystem
     {
         private readonly SpriteBatch spriteBatch;
+        private readonly OrthographicCamera orthographicCamera;
         private ComponentMapper<Sprite> spriteMapper;
         private ComponentMapper<Transform2> transformMapper;
         private ComponentMapper<Tile> tileMapper;
 
-        public TilesRenderSystem(SpriteBatch spriteBatch)
+        public TilesRenderSystem(SpriteBatch spriteBatch, OrthographicCamera orthographicCamera)
          : base(Aspect.All(typeof(Tile), typeof(Sprite)))
         {
             this.spriteBatch = spriteBatch;
+            this.orthographicCamera = orthographicCamera;
         }
 
         public override void Initialize(IComponentMapperService mapperService)
@@ -39,7 +41,7 @@ namespace MorpheusInTheUnderworld.Classes.Systems
 
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: orthographicCamera.GetViewMatrix());
 
             foreach (var entity in ActiveEntities)
             {
@@ -47,7 +49,7 @@ namespace MorpheusInTheUnderworld.Classes.Systems
                 var transform = transformMapper.Get(entity);
                 var tile = tileMapper.Get(entity);
 
-                spriteBatch.Draw(sprite, transform);
+                spriteBatch.Draw(sprite.TextureRegion.Texture, transform.Position, tile.Color);
             }
 
             spriteBatch.End();

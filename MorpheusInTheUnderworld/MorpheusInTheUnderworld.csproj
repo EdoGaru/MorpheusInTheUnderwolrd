@@ -42,11 +42,16 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Classes\Components\MinimapComponent.cs" />
     <Compile Include="Classes\Components\Player.cs" />
     <Compile Include="Classes\Components\Tile.cs" />
     <Compile Include="Classes\GameSettings.cs" />
+    <Compile Include="Classes\Components\Focusable.cs" />
+    <Compile Include="Classes\Systems\MapRenderSystem.cs" />
     <Compile Include="Classes\MenuItem.cs" />
     <Compile Include="Classes\MusicPlayer.cs" />
+    <Compile Include="Classes\Systems\CameraSystem.cs" />
+    <Compile Include="Classes\Systems\HUDRenderSystem.cs" />
     <Compile Include="Classes\Systems\PlayerSystem.cs" />
     <Compile Include="Classes\Systems\TilesRenderSystem.cs" />
     <Compile Include="Classes\Systems\RenderSystem.cs" />
@@ -101,10 +106,16 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RogueSharp, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RogueSharp.4.2.0\lib\net40\RogueSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Map\map_1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="fmod.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

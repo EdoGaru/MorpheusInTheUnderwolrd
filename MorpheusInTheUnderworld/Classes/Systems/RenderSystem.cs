@@ -5,6 +5,7 @@ using MonoGame.Extended.Animations;
 using MonoGame.Extended.Entities;
 using MonoGame.Extended.Entities.Systems;
 using MonoGame.Extended.Sprites;
+using MorpheusInTheUnderworld.Classes.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace MorpheusInTheUnderworld.Classes.Systems
         private ComponentMapper<Transform2> transforMapper;
 
         public RenderSystem(SpriteBatch spriteBatch, OrthographicCamera camera)
-         : base(Aspect.All(typeof(Transform2)).One(typeof(AnimatedSprite), typeof(Sprite)))
+         : base(Aspect.All(typeof(Transform2)).One(typeof(AnimatedSprite), typeof(Sprite)).Exclude(typeof(Tile)))
         {
             this.spriteBatch = spriteBatch;
             this.camera = camera;

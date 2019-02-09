@@ -19,15 +19,18 @@ namespace MorpheusInTheUnderworld.Classes.Systems
     // TODO: ADD PLAYER PHYSICS
     class PlayerSystem : EntityProcessingSystem
     {
+        private readonly OrthographicCamera orthographicCamera;
         private ComponentMapper<Player> playerMapper;
         private ComponentMapper<AnimatedSprite> spriteMapper;
         private ComponentMapper<Transform2> transformMapper;
         private ComponentMapper<Body> bodyMapper;
 
         // This System only filter types of Body, Player, Transform2 and AnimatedSprite
-        public PlayerSystem() 
+        public PlayerSystem(OrthographicCamera orthographicCamera) 
             : base(Aspect.All(typeof(Body), typeof(Player), typeof(Transform2), typeof(AnimatedSprite)))
         {
+            this.orthographicCamera = orthographicCamera;
+
         }
 
         public override void Initialize(IComponentMapperService mapperService)
@@ -85,38 +88,22 @@ namespace MorpheusInTheUnderworld.Classes.Systems
                     player.State = State.Idle;
             }
 
-            //if (keyboardState.IsKeyDown(Keys.Down))
-            //    player.State = State.Cool;
-
             switch (player.State)
             {
-                //case State.Jumping:
-                //    sprite.Play("jump");
-                //    break;
                 case State.Walking:
                     sprite.Play("walk");
                     sprite.Effect = player.Facing == Facing.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
                     break;
-                //case State.Falling:
-                //    sprite.Play("fall");
-                //    break;
                 case State.Idle:
                     sprite.Play("idle");
                     break;
-                //case State.Kicking:
-                //    sprite.Play("kick", () => player.State = State.Idle);
-                //    break;
-                //case State.Punching:
-                //    sprite.Play("punch", () => player.State = State.Idle);
-                //    break;
-                //case State.Cool:
-                //    sprite.Play("cool");
-                //    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
             body.Velocity.X *= 0.7f;
+
+            //orthographicCamera.LookAt(transform.Position);
 
             // TODO: Can we remove this?
             //transform.Position = body.Position;

@@ -8,11 +8,12 @@
 ( ) Continue on next line
 
 -SCREENS
-    >(REMEMBER DONT INHERIT FROM GameScreen class directly, look at "Screens/MenuScreens" for example)
-	 This is if you plan to have a ContenManager for this Screen without unloading the GLOBAL ContentManager
-	 Which i highly recommend doing this way.
-
+    >Have a ContentManager for all the screens (Dont forget to unload them).
 	>To choose a name for the Content Manager of a child Screen class, you use [fileName]Content.
-
 	*All the screens need to implement the method UnloadContent.
 
+-ENTITY
+	> If you dont know where to start from coding or if you feel lost
+	  Go to EntityFactory and create a Entity for the GameObject
+	  Then start coding the components of the given entity and then the systems!
+	  

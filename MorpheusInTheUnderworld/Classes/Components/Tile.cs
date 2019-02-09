@@ -10,8 +10,7 @@ namespace MorpheusInTheUnderworld.Classes.Components
 {
     public class Tile
     {
-        public Tile()
-        {
-        }
+        private Color color = Color.White;
+        public Color Color { get { return color;  } set { color = value; } }
     }
 }

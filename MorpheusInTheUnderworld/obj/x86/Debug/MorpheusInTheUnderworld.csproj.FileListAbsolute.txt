@@ -287,3 +287,8 @@ C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\Morph
 C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\obj\x86\Debug\MorpheusInTheUnderworld.pdb
 C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\hero.xnb
 C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\tile_32x32.xnb
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Map\map_1.txt
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\RogueSharp.dll
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\minimap_tile.xnb
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\tile_16x16.xnb
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\circle32.xnb

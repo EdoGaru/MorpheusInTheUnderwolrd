@@ -3,3 +3,9 @@
 ################################################################################
 
 /.vs/MorpheusInTheUnderworld
+/MorpheusInTheUnderworld/obj/x86/Release
+/MorpheusInTheUnderworld/obj/x86/Debug
+/MorpheusInTheUnderworld/bin/Windows/x86
+/MorpheusInTheUnderworld/bin/Windows/x86/Debug
+/MorpheusInTheUnderworld/bin/Windows/x86/Release
+
