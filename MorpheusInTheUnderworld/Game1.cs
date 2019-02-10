@@ -101,6 +101,7 @@ namespace MorpheusInTheUnderworld
 
 
         float elapsed;
+        bool bOnTheBeat = false;
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -110,6 +111,7 @@ namespace MorpheusInTheUnderworld
             GraphicsDevice.Clear(Color.CornflowerBlue);
             Viewport viewport = GraphicsDevice.Viewport;
 
+            
             float bpm = 117;
             float bps = (60f / bpm);
             elapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -124,7 +126,7 @@ namespace MorpheusInTheUnderworld
             spriteBatch.End();
             if(elapsed > bps)
             {
-
+                bOnTheBeat = true;
                 elapsed = 0f;
                 spriteBatch.Begin();
 
