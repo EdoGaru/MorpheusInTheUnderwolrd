@@ -61,7 +61,7 @@ namespace MorpheusInTheUnderworld
             var animationFactory = new SpriteSheetAnimationFactory(baddieAtlas);
             animationFactory.Add("idle", new SpriteSheetAnimationData(new[] { 5,4,3,4 }));
             animationFactory.Add("walk", new SpriteSheetAnimationData(new[] { 11,10,9,8,7,6 }, frameDuration: 0.1f));
-            animationFactory.Add("combat", new SpriteSheetAnimationData(new[] { 31 }, frameDuration: 0.3f, isLooping: false));
+            animationFactory.Add("combat", new SpriteSheetAnimationData(new[] { 29 }, frameDuration: 0.3f, isLooping: false));
             entity.Attach(new AnimatedSprite(animationFactory, "idle"));
             entity.Attach(new Transform2(position, 0, Vector2.One * 4));
             entity.Attach(new Body { Position = position, Size = new Vector2(32, 32), BodyType = BodyType.Dynamic });
