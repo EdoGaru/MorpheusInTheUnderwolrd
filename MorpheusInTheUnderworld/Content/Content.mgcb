@@ -97,9 +97,9 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/tile_32x32.png
 
-#begin Graphics/117BPMKickin.mp3
+#begin mp3/117BPMKickin.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:Graphics/117BPMKickin.mp3
+/build:mp3/117BPMKickin.mp3
 

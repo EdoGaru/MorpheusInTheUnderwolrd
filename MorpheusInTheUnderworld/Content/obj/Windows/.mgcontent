@@ -4,14 +4,14 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Ed/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Fonts/fixedsys.fnt</File>
-    <File>C:/Users/Ed/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Fonts/fixedsys_0.png</File>
-    <File>C:/Users/Ed/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Fonts/MainFont.spritefont</File>
-    <File>C:/Users/Ed/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/circle32.png</File>
-    <File>C:/Users/Ed/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/hero.png</File>
-    <File>C:/Users/Ed/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/minimap_tile.png</File>
-    <File>C:/Users/Ed/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/tile_16x16.png</File>
-    <File>C:/Users/Ed/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/tile_32x32.png</File>
-    <File>C:/Users/Ed/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/117BPMKickin.mp3</File>
+    <File>C:/Users/Ed/Desktop/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Fonts/fixedsys.fnt</File>
+    <File>C:/Users/Ed/Desktop/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Fonts/fixedsys_0.png</File>
+    <File>C:/Users/Ed/Desktop/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Fonts/MainFont.spritefont</File>
+    <File>C:/Users/Ed/Desktop/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/circle32.png</File>
+    <File>C:/Users/Ed/Desktop/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/hero.png</File>
+    <File>C:/Users/Ed/Desktop/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/minimap_tile.png</File>
+    <File>C:/Users/Ed/Desktop/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/tile_16x16.png</File>
+    <File>C:/Users/Ed/Desktop/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/Graphics/tile_32x32.png</File>
+    <File>C:/Users/Ed/Desktop/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/mp3/117BPMKickin.mp3</File>
   </SourceFiles>
 </SourceFileCollection>
