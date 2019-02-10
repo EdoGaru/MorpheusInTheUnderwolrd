@@ -608,3 +608,4 @@ C:\Users\Ed\Desktop\MorpheusInTheUnderworld\MorpheusInTheUnderworld\obj\x86\Debu
 C:\Users\Ed\Desktop\MorpheusInTheUnderworld\MorpheusInTheUnderworld\obj\x86\Debug\MorpheusInTheUnderworld.csproj.CopyComplete
 C:\Users\Ed\Desktop\MorpheusInTheUnderworld\MorpheusInTheUnderworld\obj\x86\Debug\MorpheusInTheUnderworld.exe
 C:\Users\Ed\Desktop\MorpheusInTheUnderworld\MorpheusInTheUnderworld\obj\x86\Debug\MorpheusInTheUnderworld.pdb
+C:\Users\Ed\Desktop\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\baddie.xnb
