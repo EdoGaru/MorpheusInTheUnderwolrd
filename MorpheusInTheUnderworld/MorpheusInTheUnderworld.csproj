@@ -43,6 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Classes\Components\DotPlayer.cs" />
+    <Compile Include="Classes\Components\Enemy.cs" />
     <Compile Include="Classes\Components\Player.cs" />
     <Compile Include="Classes\Components\Shard.cs" />
     <Compile Include="Classes\Components\Tile.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="Classes\MenuItem.cs" />
     <Compile Include="Classes\MusicPlayer.cs" />
     <Compile Include="Classes\Systems\CameraSystem.cs" />
+    <Compile Include="Classes\Systems\EnemySystem.cs" />
     <Compile Include="Classes\Systems\HUDRenderSystem.cs" />
     <Compile Include="Classes\Systems\PlayerSystem.cs" />
     <Compile Include="Classes\Systems\TilesRenderSystem.cs" />
@@ -68,6 +70,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Screens\CombatScreen.cs" />
     <Compile Include="Screens\GameplayScreen.cs" />
     <Compile Include="Screens\MainMenuScreen.cs" />
     <Compile Include="Screens\MenuScreen.cs" />
@@ -113,6 +116,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\117BPMKickin.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Map\map_1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -447,9 +447,6 @@ C:\Users\Ed\MorpheusInTheUnderworld\MorpheusInTheUnderworld\obj\x86\Debug\Morphe
 C:\Users\Ed\MorpheusInTheUnderworld\MorpheusInTheUnderworld\obj\x86\Debug\MorpheusInTheUnderworld.csproj.CopyComplete
 C:\Users\Ed\MorpheusInTheUnderworld\MorpheusInTheUnderworld\obj\x86\Debug\MorpheusInTheUnderworld.exe
 C:\Users\Ed\MorpheusInTheUnderworld\MorpheusInTheUnderworld\obj\x86\Debug\MorpheusInTheUnderworld.pdb
-C:\Users\Ed\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\117BPMKickin.wma
-C:\Users\Ed\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\117BPMKickin.xnb
-C:\Users\Ed\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\117BPMKickin.mp3
 C:\Users\Ed\Desktop\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Map\map_1.txt
 C:\Users\Ed\Desktop\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\mp3\117BPMKickin.mp3
 C:\Users\Ed\Desktop\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Content\Graphics\circle32.xnb
@@ -609,3 +606,9 @@ C:\Users\Ed\Desktop\MorpheusInTheUnderworld\MorpheusInTheUnderworld\obj\x86\Debu
 C:\Users\Ed\Desktop\MorpheusInTheUnderworld\MorpheusInTheUnderworld\obj\x86\Debug\MorpheusInTheUnderworld.exe
 C:\Users\Ed\Desktop\MorpheusInTheUnderworld\MorpheusInTheUnderworld\obj\x86\Debug\MorpheusInTheUnderworld.pdb
 C:\Users\Ed\Desktop\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\baddie.xnb
+C:\Users\Ed\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Content\Graphics\dotplayer.xnb
+C:\Users\Ed\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\baddie.xnb
+C:\Users\Ed\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\dotplayer.xnb
+C:\Users\Ed\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\mp3\117BPMKickin.wma
+C:\Users\Ed\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\mp3\117BPMKickin.xnb
+C:\Users\Ed\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\117BPMKickin.mp3
