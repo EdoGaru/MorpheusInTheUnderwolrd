@@ -7,6 +7,7 @@ using MonoGame.Extended.Entities;
 using MonoGame.Extended.Entities.Systems;
 using MonoGame.Extended.Input;
 using MonoGame.Extended.Screens;
+using MorpheusInTheUnderworld.Classes;
 using MorpheusInTheUnderworld.Classes.Components;
 using MorpheusInTheUnderworld.Collisions;
 using MorpheusInTheUnderworld.Screens;
@@ -18,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace MorpheusInTheUnderworld.Classes.Systems
 {
-    // TODO: ADD PLAYER PHYSICS
+    
     class EnemySystem : EntityProcessingSystem
     {
         private readonly OrthographicCamera orthographicCamera;
@@ -27,7 +28,6 @@ namespace MorpheusInTheUnderworld.Classes.Systems
         private ComponentMapper<AnimatedSprite> spriteMapper;
         private ComponentMapper<Transform2> transformMapper;
         private ComponentMapper<Body> bodyMapper;
-
 
 
         // This System only filter types of Body, Player, Transform2 and AnimatedSprite
@@ -45,6 +45,8 @@ namespace MorpheusInTheUnderworld.Classes.Systems
             bodyMapper = mapperService.GetMapper<Body>();
 
         }
+       
+
 
         public override void Process(GameTime gameTime, int entityId)
         {
@@ -52,53 +54,40 @@ namespace MorpheusInTheUnderworld.Classes.Systems
             var sprite = spriteMapper.Get(entityId);
             var transform = transformMapper.Get(entityId);
             var body = bodyMapper.Get(entityId);
-            var keyboardState = KeyboardExtended.GetState();
 
+            string choice = enemy.choice;
+            // Poll for current keyboard state
+            KeyboardState state = Keyboard.GetState();
 
-            if (enemy.CanJump)
+            if (state.IsKeyDown(Keys.Z))
             {
-               // if (keyboardState.WasKeyJustDown(Keys.Up))
-                //    body.Velocity.Y -= 550 + Math.Abs(body.Velocity.X) * 0.4f;
-
-                //if (keyboardState.WasKeyJustUp(Keys.Z))
-                //{
-                //    body.Velocity.Y -= 550 + Math.Abs(body.Velocity.X) * 0.4f;
-                //    player.State = player.State == State.Idle ? State.Punching : State.Kicking;
-                //}
+                bodyMapper.Delete(entityId);
             }
+
+
+
+
             /*
-            if (keyboardState.IsKeyDown(Keys.Right))
-            {
-                body.Velocity.X += 150;
-                player.Facing = Facing.Right;
-            }
-
-            if (keyboardState.IsKeyDown(Keys.Left))
-            {
-                body.Velocity.X -= 150;
-                player.Facing = Facing.Left;
-            }
-
-            if (!player.IsAttacking)
+            if (!enemy.IsAttacking)
             {
                 if (body.Velocity.X > 0 || body.Velocity.X < 0)
-                    player.State = State.Walking;
+                    enemy.State = State.Walking;
 
                 //if (body.Velocity.Y < 0)
-                //    player.State = State.Jumping;
+                //    enemy.State = State.Jumping;
 
                 //if (body.Velocity.Y > 0)
-                //    player.State = State.Falling;
+                //    enemy.State = State.Falling;
 
                 if (body.Velocity.EqualsWithTolerence(Vector2.Zero, 5))
-                    player.State = State.Idle;
+                    enemy.State = State.Idle;
             }
 
-            switch (player.State)
+            switch (enemy.State)
             {
                 case State.Walking:
                     sprite.Play("walk");
-                    sprite.Effect = player.Facing == Facing.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+                    sprite.Effect = enemy.Facing == Facing.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
                     break;
                 case State.Idle:
                     sprite.Play("idle");
@@ -112,7 +101,9 @@ namespace MorpheusInTheUnderworld.Classes.Systems
 
         //    body.Velocity.X *= 0.7f;
         */
-      
+
         }
+        
+       
     }
 }

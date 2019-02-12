@@ -609,6 +609,4 @@ C:\Users\Ed\Desktop\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\
 C:\Users\Ed\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Content\Graphics\dotplayer.xnb
 C:\Users\Ed\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\baddie.xnb
 C:\Users\Ed\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\dotplayer.xnb
-C:\Users\Ed\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\mp3\117BPMKickin.wma
-C:\Users\Ed\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\mp3\117BPMKickin.xnb
 C:\Users\Ed\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\117BPMKickin.mp3

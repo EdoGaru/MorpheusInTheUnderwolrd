@@ -121,9 +121,3 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/baddie.png
 
-#begin mp3/117BPMKickin.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:mp3/117BPMKickin.mp3
-

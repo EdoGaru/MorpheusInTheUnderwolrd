@@ -104,7 +104,8 @@ namespace MorpheusInTheUnderworld.Classes.Systems
                     sprite.Play("idle");
                     break;
                 case State.Combat:
-                 //   ScreenManager.LoadScreen(new CombatScreen(Game), new FadeTransition(GraphicsDevice, Color.Black, 0.5f));
+                    //   ScreenManager.LoadScreen(new CombatScreen(Game), new FadeTransition(GraphicsDevice, Color.Black, 0.5f));
+                    
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

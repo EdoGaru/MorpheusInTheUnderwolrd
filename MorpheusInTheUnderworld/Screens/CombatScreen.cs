@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Input;
 using Microsoft.Xna.Framework.Graphics;
+using MorpheusInTheUnderworld.Classes;
 using MorpheusInTheUnderworld.Classes.Systems;
 using MonoGame.Extended.ViewportAdapters;
 using Microsoft.Xna.Framework.Content;
@@ -17,6 +18,8 @@ using RogueSharp;
 using RogueSharp.MapCreation;
 using MorpheusInTheUnderworld.Classes;
 using System.IO;
+using MonoGame.Extended.BitmapFonts;
+using MorpheusInTheUnderworld.Classes.Components;
 
 namespace MorpheusInTheUnderworld.Screens
 {
@@ -36,6 +39,9 @@ namespace MorpheusInTheUnderworld.Screens
         Texture2D minimapTile;
         Texture2D blackTexture;
 
+        new BitmapFont Font { get; set; }
+
+
         public CombatScreen(Game game) : base(game)
         {
         }
@@ -49,14 +55,11 @@ namespace MorpheusInTheUnderworld.Screens
             orthographicCamera = new OrthographicCamera(viewportAdapter);
             combatScreenContent = new ContentManager(Game.Services, "Content");
 
-            //DotPlayerSystem dotPlayerSystem = new DotPlayerSystem();
             world = new WorldBuilder()
                      .AddSystem(new WorldSystem())
                      .AddSystem(new CameraSystem(orthographicCamera))
                      .AddSystem(new PlayerSystem(orthographicCamera))
-                     //.AddSystem(dotPlayerSystem)
-                     //.AddSystem(new MapRenderSystem(spriteBatch, gameplayScreenContent))
-                     //.AddSystem(new DotPlayerRenderSystem(spriteBatch))
+                     .AddSystem(new EnemySystem(orthographicCamera))
                      .AddSystem(new RenderSystem(spriteBatch, orthographicCamera))
                      .AddSystem(new TilesRenderSystem(spriteBatch, orthographicCamera))
                      .Build();
@@ -83,6 +86,8 @@ namespace MorpheusInTheUnderworld.Screens
             base.LoadContent();
             minimapTile = combatScreenContent.Load<Texture2D>("Graphics/minimap_tile");
             blackTexture = combatScreenContent.Load<Texture2D>("Graphics/tile_16x16");
+            Font = combatScreenContent.Load<BitmapFont>("Fonts/fixedsys");
+
         }
 
         public override void UnloadContent()
@@ -95,16 +100,26 @@ namespace MorpheusInTheUnderworld.Screens
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            if (KeyboardExtended.GetState().WasKeyJustDown(Keys.Escape))
+            // Poll for current keyboard state
+            KeyboardState state = Keyboard.GetState();
+
+            // If they hit esc, exit
+            if (state.IsKeyDown(Keys.Escape))
                 ScreenManager.LoadScreen(new MainMenuScreen(Game));
+
+           
+
+
         }
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
+
+            
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
+           
 
-
-            spriteBatch.End();
+            spriteBatch.End(); 
 
         }
     }
