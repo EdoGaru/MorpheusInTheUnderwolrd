@@ -31,7 +31,11 @@ namespace MorpheusInTheUnderworld.Screens
         {
             base.LoadContent();
             AddMenuItem("New Game!", () => { ScreenManager.LoadScreen(new GameplayScreen(Game)); });
-            
+#if DEBUG
+            AddMenuItem("Testing combat screen", () => { ScreenManager.LoadScreen(new CombatScreen(Game)); });
+#endif
+
+
         }
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)

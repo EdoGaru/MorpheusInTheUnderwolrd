@@ -52,6 +52,25 @@ namespace MorpheusInTheUnderworld
             return entity;
         }
 
+        public Entity CreateEnemy(Vector2 position)
+        {
+            var baddieTexture = _contentManager.Load<Texture2D>("Graphics/baddie");
+            var baddieAtlas = TextureAtlas.Create("baddieAtlas", baddieTexture, 16, 16);
+            var entity = _world.CreateEntity();
+
+            var animationFactory = new SpriteSheetAnimationFactory(baddieAtlas);
+            animationFactory.Add("idle", new SpriteSheetAnimationData(new[] { 5,4,3,4 }));
+            animationFactory.Add("walk", new SpriteSheetAnimationData(new[] { 11,10,9,8,7,6 }, frameDuration: 0.1f));
+            animationFactory.Add("combat", new SpriteSheetAnimationData(new[] { 29 }, frameDuration: 0.3f, isLooping: false));
+            entity.Attach(new AnimatedSprite(animationFactory, "idle"));
+            entity.Attach(new Transform2(position, 0, Vector2.One * 4));
+            entity.Attach(new Body { Position = position, Size = new Vector2(32, 32), BodyType = BodyType.Dynamic });
+            entity.Attach(new Focusable { IsFocused = true });
+            entity.Attach(new Enemy());
+
+            return entity;
+        }
+
         public Entity CreateTile32(Vector2 position)
         {
             var tileTexture = _contentManager.Load<Texture2D>("Graphics/tile_32x32");

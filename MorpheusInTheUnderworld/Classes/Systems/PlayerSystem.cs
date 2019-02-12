@@ -6,8 +6,10 @@ using MonoGame.Extended.Animations;
 using MonoGame.Extended.Entities;
 using MonoGame.Extended.Entities.Systems;
 using MonoGame.Extended.Input;
+using MonoGame.Extended.Screens;
 using MorpheusInTheUnderworld.Classes.Components;
 using MorpheusInTheUnderworld.Collisions;
+using MorpheusInTheUnderworld.Screens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -100,6 +102,9 @@ namespace MorpheusInTheUnderworld.Classes.Systems
                     break;
                 case State.Idle:
                     sprite.Play("idle");
+                    break;
+                case State.Combat:
+                 //   ScreenManager.LoadScreen(new CombatScreen(Game), new FadeTransition(GraphicsDevice, Color.Black, 0.5f));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
