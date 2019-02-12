@@ -20,17 +20,19 @@ namespace MorpheusInTheUnderworld.Classes.Systems
     class PlayerSystem : EntityProcessingSystem
     {
         private readonly OrthographicCamera orthographicCamera;
+
         private ComponentMapper<Player> playerMapper;
         private ComponentMapper<AnimatedSprite> spriteMapper;
         private ComponentMapper<Transform2> transformMapper;
         private ComponentMapper<Body> bodyMapper;
 
+        
+
         // This System only filter types of Body, Player, Transform2 and AnimatedSprite
         public PlayerSystem(OrthographicCamera orthographicCamera) 
-            : base(Aspect.All(typeof(Body), typeof(Player), typeof(Transform2), typeof(AnimatedSprite)))
+            : base(Aspect.All(typeof(Body), typeof(Transform2), typeof(AnimatedSprite)).One(typeof(Player), typeof(DotPlayer)))
         {
             this.orthographicCamera = orthographicCamera;
-
         }
 
         public override void Initialize(IComponentMapperService mapperService)
@@ -39,6 +41,7 @@ namespace MorpheusInTheUnderworld.Classes.Systems
             spriteMapper = mapperService.GetMapper<AnimatedSprite>();
             transformMapper = mapperService.GetMapper<Transform2>();
             bodyMapper = mapperService.GetMapper<Body>();
+
         }
 
         public override void Process(GameTime gameTime, int entityId)
@@ -49,9 +52,10 @@ namespace MorpheusInTheUnderworld.Classes.Systems
             var body = bodyMapper.Get(entityId);
             var keyboardState = KeyboardExtended.GetState();
 
+
             if (player.CanJump)
             {
-                if (keyboardState.WasKeyJustUp(Keys.Up))
+                if (keyboardState.WasKeyJustDown(Keys.Up))
                     body.Velocity.Y -= 550 + Math.Abs(body.Velocity.X) * 0.4f;
 
                 //if (keyboardState.WasKeyJustUp(Keys.Z))

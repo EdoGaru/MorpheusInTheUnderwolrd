@@ -67,18 +67,37 @@ namespace MorpheusInTheUnderworld
             return entity;
         }
 
-        public Entity CreateMap(Vector2 position, string from)
-        {
-             var expectedMap = File.ReadAllText(from);
+        // THIS IS FOR A FUTURE VERSION 
+        //public Entity CreateMap(Vector2 position, string from)
+        //{
+        //     var expectedMap = File.ReadAllText(from);
             
-            IMapCreationStrategy<Map> mapCreationStrategy = new StringDeserializeMapCreationStrategy<Map>(expectedMap);   
-            var map = Map.Create(mapCreationStrategy);
+        //    IMapCreationStrategy<Map> mapCreationStrategy = new StringDeserializeMapCreationStrategy<Map>(expectedMap);   
+        //    var map = Map.Create(mapCreationStrategy);
 
-            var entity = _world.CreateEntity();
-            entity.Attach(new Transform2(position, 0, Vector2.One));
-            entity.Attach(map);
+        //    var entity = _world.CreateEntity();
+        //    entity.Attach(new Transform2(position, 0, Vector2.One));
+        //    entity.Attach(map);
 
-            return entity;
-        }
+        //    return entity;
+        //}
+
+        //// This player works together with the map, and is linked to our
+        //// side view player
+        //public Entity CreateDotPlayer(Entity map)
+        //{
+        //    var entity = _world.CreateEntity();
+        //    var circle = _contentManager.Load<Texture2D>("Graphics/dotplayer");
+        //    var Map = map.Get<Map>();
+        //    Vector2 size = new Vector2(16, 16);
+        //    var mapTransform = map.Get<Transform2>().Position;
+        //    var position = new Vector2(mapTransform.X + (Map.GetCell(1,0).X * size.X) + size.X/2, mapTransform.Y + (Map.GetCell(1,0).Y * size.Y) + size.Y/2);
+
+        //    entity.Attach(new DotPlayer());
+        //    entity.Attach(new Transform2(position, 0, Vector2.One));
+        //    entity.Attach(new Body() { Position = position, Size = size, BodyType = BodyType.Static });
+        //    entity.Attach(new Sprite(circle));
+        //    return entity;
+        //}
     }
 }

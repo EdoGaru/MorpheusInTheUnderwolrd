@@ -9,3 +9,5 @@
 /MorpheusInTheUnderworld/bin/Windows/x86/Debug
 /MorpheusInTheUnderworld/bin/Windows/x86/Release
 
+/MorpheusInTheUnderworld/Classes/Systems/DotPlayerRenderSystem.cs
+/MorpheusInTheUnderworld/Classes/Systems/DotPlayerSystem.cs

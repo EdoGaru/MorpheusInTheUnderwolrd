@@ -42,12 +42,12 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Classes\Components\MinimapComponent.cs" />
+    <Compile Include="Classes\Components\DotPlayer.cs" />
     <Compile Include="Classes\Components\Player.cs" />
+    <Compile Include="Classes\Components\Shard.cs" />
     <Compile Include="Classes\Components\Tile.cs" />
     <Compile Include="Classes\GameSettings.cs" />
     <Compile Include="Classes\Components\Focusable.cs" />
-    <Compile Include="Classes\Systems\MapRenderSystem.cs" />
     <Compile Include="Classes\MenuItem.cs" />
     <Compile Include="Classes\MusicPlayer.cs" />
     <Compile Include="Classes\Systems\CameraSystem.cs" />
@@ -114,7 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Map\map_1.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="fmod.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

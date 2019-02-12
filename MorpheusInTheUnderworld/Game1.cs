@@ -94,9 +94,9 @@ namespace MorpheusInTheUnderworld
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            
-            fps.Update(gameTime);
             base.Update(gameTime);
+            fps.Update(gameTime);
+            musicPlayer.Update(gameTime);
         }
 
 
@@ -110,9 +110,6 @@ namespace MorpheusInTheUnderworld
             GraphicsDevice.Clear(Color.CornflowerBlue);
             Viewport viewport = GraphicsDevice.Viewport;
 
-            float bpm = 117;
-            float bps = (60f / bpm);
-            elapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
            // Only draw if we are Debugging
             #if DEBUG
@@ -122,18 +119,13 @@ namespace MorpheusInTheUnderworld
             spriteBatch.Begin();
             spriteBatch.DrawString(bitmapFont, fpsText, new Vector2(viewport.Width - fpsTextWidth, 0), Color.White);
             spriteBatch.End();
-            if(elapsed > bps)
+            if(musicPlayer.GotBeat())
             {
-
-                elapsed = 0f;
                 spriteBatch.Begin();
-
                 spriteBatch.Draw(circle32, new Rectangle((int)(viewport.Width - fpsTextWidth - 32), 8, 16, 16), Color.Red);
-
                 spriteBatch.End();
-
             }
-#endif
+            #endif
 
             base.Draw(gameTime);
         }

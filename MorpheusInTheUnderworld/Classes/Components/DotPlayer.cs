@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace MorpheusInTheUnderworld.Classes.Components
 {
-    class MinimapComponent
+    public class DotPlayer
     {
+        public DotPlayer()
+        {
+
+        }
     }
 }

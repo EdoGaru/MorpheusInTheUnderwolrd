@@ -43,6 +43,9 @@ namespace MorpheusInTheUnderworld.Classes
 
         public event EventHandler NextSongEvent;
 
+        private float bpm_elapsed;
+        private bool gotBeat;
+
         public MusicPlayer()
         {
             masterVolume = 1f;
@@ -65,7 +68,8 @@ namespace MorpheusInTheUnderworld.Classes
             previousSpectrum = spectrum;
             EnableFFT();
         }
-
+        // Is optional to Update the Music Player
+        // But doing so will enable features as BPM Detection
         public void Update(GameTime gameTime)
         {
 
@@ -81,6 +85,7 @@ namespace MorpheusInTheUnderworld.Classes
             }
 
             
+            // BPM Method 1 (More research)
             #region Update System & FFT Algorithm
 
             if (FFTEnabled)
@@ -111,6 +116,20 @@ namespace MorpheusInTheUnderworld.Classes
                 #endregion
             }
             #endregion
+
+            // BPM Method 2 (Working! but with small sync bugs)
+
+            float bpm = 117;
+            float bps = (60f / bpm);
+            bpm_elapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (bpm_elapsed > bps)
+            {
+                gotBeat = true;
+                bpm_elapsed = 0f;
+            }
+            else
+                gotBeat = false;
         }
 
         public void NextSong(bool loop)
@@ -212,6 +231,10 @@ namespace MorpheusInTheUnderworld.Classes
             uint position = 0;
             CurrentSong.getLength(out position, FMOD.TIMEUNIT.MS);
             return position;
+        }
+        public bool GotBeat()
+        {
+            return gotBeat;
         }
     }
 }

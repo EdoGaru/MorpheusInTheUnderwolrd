@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.Entities;
 using MonoGame.Extended.Entities.Systems;
+using MorpheusInTheUnderworld.Classes.Components;
 using RogueSharp;
 using System;
 using System.Collections.Generic;
@@ -40,13 +41,13 @@ namespace MorpheusInTheUnderworld.Classes.Systems
             pathTexture = contentManager.Load<Texture2D>("Graphics/tile_16x16");
         }
 
-
         public override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
             foreach (var entity in ActiveEntities)
             {
+                 
                 var transform = transformMapper.Get(entity);
                 var map = mapMapper.Get(entity);
 

@@ -32,7 +32,6 @@ namespace MorpheusInTheUnderworld.Screens
         private EntityFactory entityFactory;
 
         ContentManager gameplayScreenContent;
-        private IMap map;
 
         Texture2D minimapTile;
         Texture2D blackTexture;
@@ -50,12 +49,14 @@ namespace MorpheusInTheUnderworld.Screens
             orthographicCamera = new OrthographicCamera(viewportAdapter);
             gameplayScreenContent = new ContentManager(Game.Services, "Content");
 
-
+            //DotPlayerSystem dotPlayerSystem = new DotPlayerSystem();
             world = new WorldBuilder()
                      .AddSystem(new WorldSystem())
                      .AddSystem(new CameraSystem(orthographicCamera))
                      .AddSystem(new PlayerSystem(orthographicCamera))
-                     .AddSystem(new MapRenderSystem(spriteBatch, gameplayScreenContent))
+                     //.AddSystem(dotPlayerSystem)
+                     //.AddSystem(new MapRenderSystem(spriteBatch, gameplayScreenContent))
+                     //.AddSystem(new DotPlayerRenderSystem(spriteBatch))
                      .AddSystem(new RenderSystem(spriteBatch, orthographicCamera))
                      .AddSystem(new TilesRenderSystem(spriteBatch, orthographicCamera))
                      .Build();
@@ -63,12 +64,15 @@ namespace MorpheusInTheUnderworld.Screens
             Game.Components.Add(world);
 
             entityFactory = new EntityFactory(world, gameplayScreenContent);
-            entityFactory.CreatePlayer(Vector2.Zero);
+
             for (int i = 0; i < 50; i++)
             {
                 entityFactory.CreateTile32(new Vector2(i * 32, viewport.Height / 2));
             }
-            entityFactory.CreateMap(new Vector2(viewport.Width - (viewport.Width / 4), viewport.Height - 200), "Content/Map/map_1.txt");
+            //Entity map = entityFactory.CreateMap(new Vector2(viewport.Width - (viewport.Width / 4)-200, viewport.Height - 300), "Content/Map/map_1.txt");
+           
+            //entityFactory.CreateDotPlayer(map);
+            entityFactory.CreatePlayer(Vector2.Zero);
 
         }
         public override void LoadContent()

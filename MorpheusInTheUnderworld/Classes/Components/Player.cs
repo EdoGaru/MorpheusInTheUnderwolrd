@@ -24,5 +24,6 @@ namespace MorpheusInTheUnderworld.Classes.Components
         public State State { get; set; }
         public bool IsAttacking => State == State.Combat || State == State.Combat;
         public bool CanJump => State == State.Idle || State == State.Walking;
+        public List<Shard> Shards { get; set; }
     }
 }

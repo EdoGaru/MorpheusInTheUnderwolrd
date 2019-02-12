@@ -25,7 +25,7 @@ namespace MorpheusInTheUnderworld.Classes.Systems
         private ComponentMapper<Transform2> transforMapper;
 
         public RenderSystem(SpriteBatch spriteBatch, OrthographicCamera camera)
-         : base(Aspect.All(typeof(Transform2)).One(typeof(AnimatedSprite), typeof(Sprite)).Exclude(typeof(Tile)))
+         : base(Aspect.All(typeof(Transform2)).One(typeof(AnimatedSprite), typeof(Sprite)).Exclude(typeof(Tile), typeof(DotPlayer)))
         {
             this.spriteBatch = spriteBatch;
             this.camera = camera;
