@@ -13,6 +13,7 @@ namespace MorpheusInTheUnderworld.Screens
 {
     public class OptionMenuScreen : MenuScreen
     {
+        GameTime _gametime;
         UserInterface optionInterface;
         UserInterface previousInterface;
         public OptionMenuScreen(Game game)
@@ -39,6 +40,11 @@ namespace MorpheusInTheUnderworld.Screens
             // Buttons
             Button loadButton, saveButton, confirmButton;
 
+            // Sliders
+            Slider fxSlider, musicSlider;
+
+            //Labels
+            Label fxPercentage, musicPercentage;
 
             // Main Panels
             Panel mainPanel = new Panel(mainPanelSize, PanelSkin.None, Anchor.Auto);
@@ -51,8 +57,8 @@ namespace MorpheusInTheUnderworld.Screens
             Panel masterVolPanel = new Panel(new Vector2(0, 50), PanelSkin.None, Anchor.Auto);
             // Declare our master volume controls
             masterVolPanel.AddChild(new Label("Master Volume", Anchor.AutoInline, size: new Vector2(0.4f, -1)));
-            Slider masterVolSlider = new Slider(0, 100, new Vector2(250, -1), SliderSkin.Default, Anchor.AutoInline) { Value = 100 };
-            Label masterPercentage = new Label("100%", Anchor.AutoInline, new Vector2(0.2f, -1)) { SpaceBefore = new Vector2(30, 0) };
+            Slider masterVolSlider = new Slider(0, 100, new Vector2(250, -1), SliderSkin.Default, Anchor.AutoInline) { Value = GameSettings.MasterVolume };
+            Label masterPercentage = new Label(GameSettings.MasterVolume.ToString() + "%", Anchor.AutoInline, new Vector2(0.2f, -1)) { SpaceBefore = new Vector2(30, 0) };
 
             // Event to grab our slider value and set it to our GameSettings.
             masterVolSlider.OnValueChange = (Entity ent) =>
@@ -64,12 +70,37 @@ namespace MorpheusInTheUnderworld.Screens
             masterVolPanel.AddChild(masterVolSlider);
             masterVolPanel.AddChild(masterPercentage);
             optionsPanel.AddChild(masterVolPanel);
+
+            // music vol panel
+            Panel musicVolPanel = new Panel(new Vector2(0, 50), PanelSkin.None, Anchor.Auto);
+            musicVolPanel.AddChild(new Label("Music Volume", Anchor.AutoInline, size: new Vector2(0.4f, -1)));
+            musicVolPanel.AddChild(musicSlider = new Slider(0, 100, new Vector2(250, -1), SliderSkin.Default, Anchor.AutoInline) { Value = GameSettings.MusicVolume });
+            musicVolPanel.AddChild(musicPercentage = new Label(GameSettings.MusicVolume.ToString() + "%", Anchor.AutoInline, new Vector2(0.2f, -1)) { SpaceBefore = new Vector2(30, 0) });
+
+            musicSlider.OnValueChange = (Entity ent) =>
+            {
+                GameSettings.MusicVolume = musicSlider.Value;
+                musicPercentage.Text = GameSettings.MusicVolume.ToString() + "%";
+            };
+
+
+            optionsPanel.AddChild(musicVolPanel);
+
             // master effect panel
             Panel masterEffectPanel = new Panel(new Vector2(0, 50), PanelSkin.None, Anchor.Auto);
             masterEffectPanel.AddChild(new Label("Effects Volume", Anchor.AutoInline, size: new Vector2(0.4f, -1)));
-            masterEffectPanel.AddChild(new Slider(0, 100, new Vector2(250, -1), SliderSkin.Default, Anchor.AutoInline) { Value = 100 });
-            masterEffectPanel.AddChild(new Label("100%", Anchor.AutoInline, new Vector2(0.2f, -1)) { SpaceBefore = new Vector2(30, 0) });
+            masterEffectPanel.AddChild(fxSlider = new Slider(0, 100, new Vector2(250, -1), SliderSkin.Default, Anchor.AutoInline) { Value = GameSettings.EffectsVolume });
+            masterEffectPanel.AddChild(fxPercentage = new Label(GameSettings.EffectsVolume.ToString() + "%", Anchor.AutoInline, new Vector2(0.2f, -1)) { SpaceBefore = new Vector2(30, 0) });
+
+            fxSlider.OnValueChange = (Entity ent) =>
+                        {
+                            GameSettings.EffectsVolume = fxSlider.Value;
+                            fxPercentage.Text = GameSettings.EffectsVolume.ToString() + "%";
+                        };
+
+
             optionsPanel.AddChild(masterEffectPanel);
+           
             //load & save config panel
             Panel configPanel = new Panel(new Vector2(0, 50), PanelSkin.None, Anchor.Auto);
             configPanel.AddChild(new Header("Configuration", Anchor.TopCenter));
@@ -85,6 +116,10 @@ namespace MorpheusInTheUnderworld.Screens
             loadButton.OnClick = (Entity ent) =>
             {
                 GameSettings.Read();
+                musicSlider.Value = GameSettings.MusicVolume;
+                fxSlider.Value = GameSettings.EffectsVolume;
+                masterVolSlider.Value = GameSettings.MasterVolume;
+                
             };
 
             saveButton.OnClick = (Entity ent) =>
@@ -93,7 +128,7 @@ namespace MorpheusInTheUnderworld.Screens
 
             };
 
-            void ConfirmOverwrite()
+            void ConfirmOverwrite() // broken out into separate function because can't nest Entities
             {
                 configPanel.RemoveChild(saveButton);
                 configPanel.AddChild(confirmButton = new Button("Click to overwrite", ButtonSkin.Default, Anchor.AutoInline, size: new Vector2(0.5f, -1)));
