@@ -34,6 +34,8 @@ namespace MorpheusInTheUnderworld.Screens
 #if DEBUG
             AddMenuItem("Testing combat screen", () => { ScreenManager.LoadScreen(new CombatScreen(Game)); });
 #endif
+            AddMenuItem("Options", () => { ScreenManager.LoadScreen(new OptionMenuScreen(Game)); });
+
 
 
         }

@@ -9,6 +9,7 @@ using MorpheusInTheUnderworld.Screens;
 using MorpheusInTheUnderworld.Classes;
 using System.IO;
 using MonoGame.Extended.Screens.Transitions;
+using GeonBit.UI;
 
 namespace MorpheusInTheUnderworld
 {
@@ -43,12 +44,13 @@ namespace MorpheusInTheUnderworld
             musicPlayer = new MusicPlayer();
             musicPlayer.Initialize();
             string currentDir = Directory.GetCurrentDirectory();
-            musicPlayer.AddSong(currentDir + "\\mp3\\117BPMKickin.mp3");
+            musicPlayer.AddSong(currentDir + "\\Content\\117BPMKickin.mp3");
             musicPlayer.LoadSong(0, true);
             musicPlayer.Play();
 
-            // User needs to register all the Screens that have been created!
             screenManager = Components.Add<ScreenManager>();
+
+            GameSettings.Read();
 
         }
 
@@ -76,6 +78,7 @@ namespace MorpheusInTheUnderworld
             bitmapFont = Content.Load<BitmapFont>("Fonts/fixedsys");
             screenManager.LoadScreen(new MainMenuScreen(this), new FadeTransition(GraphicsDevice, Color.Black, 0.5f));
             circle32 = Content.Load<Texture2D>("Graphics/circle32");
+            UserInterface.Initialize(Content, BuiltinThemes.editor);
         }
 
         /// <summary>
@@ -97,6 +100,8 @@ namespace MorpheusInTheUnderworld
             base.Update(gameTime);
             fps.Update(gameTime);
             musicPlayer.Update(gameTime);
+
+            UserInterface.Active.Update(gameTime);
         }
 
 
@@ -127,6 +132,7 @@ namespace MorpheusInTheUnderworld
             }
             #endif
 
+            UserInterface.Active.Draw(spriteBatch);
             base.Draw(gameTime);
         }
     }

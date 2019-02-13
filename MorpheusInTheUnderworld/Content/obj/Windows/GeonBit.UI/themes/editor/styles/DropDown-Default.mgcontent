@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/Edo/Documents/Visual Studio 2013/Projects/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/GeonBit.UI/themes/editor/styles/DropDown-Default.xml</SourceFile>
+  <SourceTime>2019-02-12T17:31:57.7170595-08:00</SourceTime>
+  <DestFile>C:/Users/Edo/Documents/Visual Studio 2013/Projects/MorpheusInTheUnderworld/MorpheusInTheUnderworld/Content/bin/Windows/GeonBit.UI/themes/editor/styles/DropDown-Default.xnb</DestFile>
+  <DestTime>2019-02-12T17:46:06.2925952-08:00</DestTime>
+  <Importer>XmlImporter</Importer>
+  <ImporterTime>2019-01-19T13:27:06-08:00</ImporterTime>
+  <Processor>PassThroughProcessor</Processor>
+  <ProcessorTime>2019-01-19T13:27:06-08:00</ProcessorTime>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>
