@@ -80,8 +80,8 @@ namespace MorpheusInTheUnderworld.Classes
                 uint position = 0;
                 CurrentSong.getLength(out length, FMOD.TIMEUNIT.MS);
                 Channel.getPosition(out position, FMOD.TIMEUNIT.MS);
-              //  if (position == length)
-             //       NextSongEvent.Invoke();
+                if (position == length)
+                    NextSongEvent.Invoke();
             }
 
             

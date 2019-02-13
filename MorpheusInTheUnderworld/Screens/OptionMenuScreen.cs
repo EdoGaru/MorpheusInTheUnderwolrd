@@ -43,7 +43,7 @@ namespace MorpheusInTheUnderworld.Screens
 
             optionsPanel.AddChild(new Header("Options", Anchor.TopCenter));
             optionsPanel.AddChild(new HorizontalLine());
-            // a width of 0 meanst take parent full width size
+            // a width of 0 means take parent full width size
             Panel masterVolPanel = new Panel(new Vector2(0, 50), PanelSkin.None, Anchor.Auto);
             // Declare our master volume controls
             masterVolPanel.AddChild(new Label("Master Volume", Anchor.AutoInline, size: new Vector2(0.4f, -1)));
@@ -60,15 +60,22 @@ namespace MorpheusInTheUnderworld.Screens
             masterVolPanel.AddChild(masterVolSlider);
             masterVolPanel.AddChild(masterPercentage);
             optionsPanel.AddChild(masterVolPanel);
-
+            // master effect panel
             Panel masterEffectPanel = new Panel(new Vector2(0, 50), PanelSkin.None, Anchor.Auto);
             masterEffectPanel.AddChild(new Label("Effects Volume", Anchor.AutoInline, size: new Vector2(0.4f, -1)));
             masterEffectPanel.AddChild(new Slider(0, 100, new Vector2(250, -1), SliderSkin.Default, Anchor.AutoInline) { Value = 100 });
             masterEffectPanel.AddChild(new Label("100%", Anchor.AutoInline, new Vector2(0.2f, -1)) { SpaceBefore = new Vector2(30,0) });
             optionsPanel.AddChild(masterEffectPanel);
+            //load & save config panel
+            Panel configPanel = new Panel(new Vector2(0, 50), PanelSkin.None, Anchor.Auto);
+            configPanel.AddChild(new Header("Configuration", Anchor.TopCenter));
+            configPanel.AddChild(new HorizontalLine());
+            configPanel.AddChild(new Button("Load config", size: new Vector2(0.4f, -1)));
+            configPanel.AddChild(new Button("Save config", size: new Vector2(0.4f, -1)));
+
+            optionsPanel.AddChild(configPanel);
 
             mainPanel.AddChild(optionsPanel);
-            
             UserInterface.Active.AddEntity(mainPanel);
         }
 
