@@ -16,7 +16,7 @@ namespace MorpheusInTheUnderworld.Screens
         UserInterface optionInterface;
         UserInterface previousInterface;
         public OptionMenuScreen(Game game)
-            :base(game)
+            : base(game)
         {
 
         }
@@ -35,6 +35,10 @@ namespace MorpheusInTheUnderworld.Screens
             // Sizes
             Vector2 mainPanelSize = new Vector2(Viewport.Width, Viewport.Height);
             Vector2 optionsPanelSize = new Vector2(Viewport.Width / 1.2f, Viewport.Height / 1.2f);
+
+            // Buttons
+            Button loadButton, saveButton, confirmButton;
+
 
             // Main Panels
             Panel mainPanel = new Panel(mainPanelSize, PanelSkin.None, Anchor.Auto);
@@ -64,20 +68,52 @@ namespace MorpheusInTheUnderworld.Screens
             Panel masterEffectPanel = new Panel(new Vector2(0, 50), PanelSkin.None, Anchor.Auto);
             masterEffectPanel.AddChild(new Label("Effects Volume", Anchor.AutoInline, size: new Vector2(0.4f, -1)));
             masterEffectPanel.AddChild(new Slider(0, 100, new Vector2(250, -1), SliderSkin.Default, Anchor.AutoInline) { Value = 100 });
-            masterEffectPanel.AddChild(new Label("100%", Anchor.AutoInline, new Vector2(0.2f, -1)) { SpaceBefore = new Vector2(30,0) });
+            masterEffectPanel.AddChild(new Label("100%", Anchor.AutoInline, new Vector2(0.2f, -1)) { SpaceBefore = new Vector2(30, 0) });
             optionsPanel.AddChild(masterEffectPanel);
             //load & save config panel
             Panel configPanel = new Panel(new Vector2(0, 50), PanelSkin.None, Anchor.Auto);
             configPanel.AddChild(new Header("Configuration", Anchor.TopCenter));
             configPanel.AddChild(new HorizontalLine());
-            configPanel.AddChild(new Button("Load config", size: new Vector2(0.4f, -1)));
-            configPanel.AddChild(new Button("Save config", size: new Vector2(0.4f, -1)));
+            configPanel.AddChild(loadButton = new Button("Load config", size: new Vector2(0.5f, -1)));
+            configPanel.AddChild(saveButton = new Button("Save config", ButtonSkin.Default, Anchor.AutoInline, size: new Vector2(0.5f, -1)));
 
             optionsPanel.AddChild(configPanel);
-
             mainPanel.AddChild(optionsPanel);
             UserInterface.Active.AddEntity(mainPanel);
+
+            //load/save button events
+            loadButton.OnClick = (Entity ent) =>
+            {
+                GameSettings.Read();
+            };
+
+            saveButton.OnClick = (Entity ent) =>
+            {
+                ConfirmOverwrite();
+
+            };
+
+            void ConfirmOverwrite()
+            {
+                configPanel.RemoveChild(saveButton);
+                configPanel.AddChild(confirmButton = new Button("Click to overwrite", ButtonSkin.Default, Anchor.AutoInline, size: new Vector2(0.5f, -1)));
+                confirmButton.OnClick = (Entity ent) =>
+                {
+                    GameSettings.Write();
+                    configPanel.RemoveChild(confirmButton);
+                    configPanel.AddChild(saveButton);
+
+
+                };
+            }
+
+       
+                
+
+
         }
+
+        
 
         public override void UnloadContent()
         {
