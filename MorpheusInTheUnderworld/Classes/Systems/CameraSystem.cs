@@ -39,7 +39,7 @@ namespace MorpheusInTheUnderworld.Classes.Systems
 
                 //There can only be one object focused
                 if (focus.IsFocused)
-                    orthographicCamera.LookAt(transform.Position);
+                    orthographicCamera.LookAt(new Vector2(transform.Position.X,transform.Position.Y/2));
             }
         }
     }

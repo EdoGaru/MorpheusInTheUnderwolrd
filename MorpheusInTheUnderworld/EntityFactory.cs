@@ -16,8 +16,6 @@ using MonoGame.Extended;
 using MorpheusInTheUnderworld.Classes.Components;
 using MonoGame.Extended.Sprites;
 using MorpheusInTheUnderworld.Classes;
-using RogueSharp;
-using RogueSharp.MapCreation;
 using System.IO;
 
 namespace MorpheusInTheUnderworld
@@ -45,7 +43,7 @@ namespace MorpheusInTheUnderworld
             animationFactory.Add("combat", new SpriteSheetAnimationData(new[] { 17 }, frameDuration: 0.3f, isLooping: false));
             entity.Attach(new AnimatedSprite(animationFactory, "idle"));
             entity.Attach(new Transform2(position, 0, Vector2.One*4));
-            entity.Attach(new Body { Position = position, Size = new Vector2(32, 32), BodyType = BodyType.Dynamic });
+            entity.Attach(new Body { Position = position, Size = new Vector2(96, 96), BodyType = BodyType.Dynamic });
             entity.Attach(new Focusable { IsFocused = true });
             entity.Attach(new Player());
 
@@ -63,34 +61,107 @@ namespace MorpheusInTheUnderworld
             animationFactory.Add("walk", new SpriteSheetAnimationData(new[] { 11,10,9,8,7,6 }, frameDuration: 0.1f));
             animationFactory.Add("combat", new SpriteSheetAnimationData(new[] { 29 }, frameDuration: 0.3f, isLooping: false));
             entity.Attach(new AnimatedSprite(animationFactory, "idle"));
-            entity.Attach(new Transform2(position, 0, Vector2.One * 4));
-            entity.Attach(new Body { Position = position, Size = new Vector2(32, 32), BodyType = BodyType.Dynamic });
+            entity.Attach(new Transform2(position, 0, Vector2.One*4));
+            entity.Attach(new Body { Position = position, Size = new Vector2(64, 64), BodyType = BodyType.Dynamic });
             entity.Attach(new Focusable { IsFocused = true });
             entity.Attach(new Enemy());
 
             return entity;
         }
 
-        public Entity CreateTile32(Vector2 position)
+        //160,121 normal tile
+        public Entity CreatePath(Vector2 position)
         {
-            var tileTexture = _contentManager.Load<Texture2D>("Graphics/tile_32x32");
-            Vector2 size = new Vector2(32, 32);
+            Texture2D tile_cave_platform = _contentManager.Load<Texture2D>("Graphics/tile_cave_platform");
+            var cavePathRegion = new TextureRegion2D(tile_cave_platform, new Rectangle(160, 121, 32, 32));
+            var size = new Vector2(32, 32);
 
             var entity = _world.CreateEntity();
 
-            entity.Attach(new Tile() { Color = Color.Black });
-            entity.Attach(new Sprite(tileTexture));
-            entity.Attach(new Transform2(position, 0, Vector2.One));
+            entity.Attach(new Tile() {  });
+            entity.Attach(new Sprite(cavePathRegion));
+            entity.Attach(new Transform2(position, 0, Vector2.One*2));
             entity.Attach(new Body { Position = position, Size = size, BodyType = BodyType.Static });
 
             return entity;
         }
 
+        //125,182
+        public Entity CreateUnderground(Vector2 position)
+        {
+            Texture2D tile_cave_platform = _contentManager.Load<Texture2D>("Graphics/tile_cave_platform");
+            var cavePathRegion = new TextureRegion2D(tile_cave_platform, new Rectangle(125, 182, 32, 32));
+            var size = new Vector2(32, 32);
+
+            var entity = _world.CreateEntity();
+
+            entity.Attach(new Tile() {  });
+            entity.Attach(new Sprite(cavePathRegion));
+            entity.Attach(new Transform2(position, 0, Vector2.One*2));
+            entity.Attach(new Body { Position = position, Size = size, BodyType = BodyType.Static });
+
+            return entity;
+        }
+
+        //64, 249
+        public List<Entity> CreateWall(Vector2 position, int Height)
+        {
+            Texture2D tile_cave_platform = _contentManager.Load<Texture2D>("Graphics/tile_cave_platform");
+            var cavePathRegion = new TextureRegion2D(tile_cave_platform, new Rectangle(64, 249, 32, 32));
+            var size = new Vector2(32, 32);
+            List<Entity> wallList = new List<Entity>();
+
+            for (int i = 0; i < Height; i++)
+            {
+                var entity = _world.CreateEntity();
+
+                entity.Attach(new Tile() { });
+                entity.Attach(new Sprite(cavePathRegion));
+                entity.Attach(new Transform2(position, 90, Vector2.One * 2));
+                entity.Attach(new Body { Position = new Vector2(position.X, position.Y - (i*32)), Size = size, BodyType = BodyType.Static });
+
+                wallList.Add(entity);
+            }
+            return wallList;
+
+        }
+
+        public List<Entity> CreateWall(Vector2 position, int Height, TextureRegion2D texture)
+        {
+            var size = new Vector2(32, 32);
+            List<Entity> wallList = new List<Entity>();
+
+            for (int i = 0; i < Height; i++)
+            {
+                var entity = _world.CreateEntity();
+
+                entity.Attach(new Tile() { });
+                entity.Attach(new Sprite(texture));
+                entity.Attach(new Transform2(position, 90, Vector2.One * 2));
+                entity.Attach(new Body { Position = new Vector2(position.X, position.Y - (i*32)), Size = size, BodyType = BodyType.Static });
+
+                wallList.Add(entity);
+            }
+            return wallList;
+
+        }
+
+        public Entity CreateRocksBackground(Vector2 position, float scale)
+        {
+            TextureRegion2D background_rocks_region = new TextureRegion2D(_contentManager.Load<Texture2D>("Graphics/tile_cave_bg_rock"), new Rectangle(0, 0, 448, 224));
+
+            var entity = _world.CreateEntity();
+
+            entity.Attach(new Sprite(background_rocks_region));
+            entity.Attach(new Transform2(position, 0, Vector2.One*scale));
+
+            return entity;
+        }
         // THIS IS FOR A FUTURE VERSION 
         //public Entity CreateMap(Vector2 position, string from)
         //{
         //     var expectedMap = File.ReadAllText(from);
-            
+
         //    IMapCreationStrategy<Map> mapCreationStrategy = new StringDeserializeMapCreationStrategy<Map>(expectedMap);   
         //    var map = Map.Create(mapCreationStrategy);
 

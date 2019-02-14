@@ -1226,3 +1226,6 @@ C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\Morph
 C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\GeonBit.UI\themes\lowres\fonts\Bitstream Vera Sans Mono Roman.ttf
 C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\DataTypes.dll
 C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\GeonBit.UI.dll
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\back.xnb
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\tile_cave_bg_rock.xnb
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\tile_cave_platform.xnb

@@ -31,10 +31,9 @@ namespace MorpheusInTheUnderworld.Classes.Systems
 
 
         // This System only filter types of Body, Player, Transform2 and AnimatedSprite
-        public EnemySystem(OrthographicCamera orthographicCamera)
-            : base(Aspect.All(typeof(Body), typeof(Transform2), typeof(AnimatedSprite)).One(typeof(Enemy), typeof(DotPlayer)))
+        public EnemySystem()
+            : base(Aspect.All(typeof(Body), typeof(Transform2), typeof(AnimatedSprite),typeof(Enemy)))
         {
-            this.orthographicCamera = orthographicCamera;
         }
 
         public override void Initialize(IComponentMapperService mapperService)
@@ -54,18 +53,6 @@ namespace MorpheusInTheUnderworld.Classes.Systems
             var body = bodyMapper.Get(entityId);
             var keyboardState = KeyboardExtended.GetState();
 
-
-            if (enemy.CanJump)
-            {
-               // if (keyboardState.WasKeyJustDown(Keys.Up))
-                //    body.Velocity.Y -= 550 + Math.Abs(body.Velocity.X) * 0.4f;
-
-                //if (keyboardState.WasKeyJustUp(Keys.Z))
-                //{
-                //    body.Velocity.Y -= 550 + Math.Abs(body.Velocity.X) * 0.4f;
-                //    player.State = player.State == State.Idle ? State.Punching : State.Kicking;
-                //}
-            }
             /*
             if (keyboardState.IsKeyDown(Keys.Right))
             {

@@ -44,9 +44,9 @@ namespace MorpheusInTheUnderworld
             musicPlayer = new MusicPlayer();
             musicPlayer.Initialize();
             string currentDir = Directory.GetCurrentDirectory();
-            musicPlayer.AddSong(currentDir + "\\Content\\117BPMKickin.mp3");
-            musicPlayer.LoadSong(0, true);
-            musicPlayer.Play();
+            //musicPlayer.AddSong(currentDir + "\\Content\\117BPMKickin.mp3");
+            //musicPlayer.LoadSong(0, true);
+            //musicPlayer.Play();
 
             screenManager = Components.Add<ScreenManager>();
 
@@ -99,7 +99,7 @@ namespace MorpheusInTheUnderworld
         {
             base.Update(gameTime);
             fps.Update(gameTime);
-            musicPlayer.Update(gameTime);
+            //musicPlayer.Update(gameTime);
 
             UserInterface.Active.Update(gameTime);
         }
@@ -116,6 +116,7 @@ namespace MorpheusInTheUnderworld
             Viewport viewport = GraphicsDevice.Viewport;
 
 
+            UserInterface.Active.Draw(spriteBatch);
            // Only draw if we are Debugging
             #if DEBUG
             fps.Draw(gameTime);
@@ -132,7 +133,6 @@ namespace MorpheusInTheUnderworld
             }
             #endif
 
-            UserInterface.Active.Draw(spriteBatch);
             base.Draw(gameTime);
         }
     }

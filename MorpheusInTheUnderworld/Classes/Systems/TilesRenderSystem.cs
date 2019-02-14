@@ -49,7 +49,7 @@ namespace MorpheusInTheUnderworld.Classes.Systems
                 var transform = transformMapper.Get(entity);
                 var tile = tileMapper.Get(entity);
 
-                spriteBatch.Draw(sprite.TextureRegion.Texture, transform.Position, tile.Color);
+                spriteBatch.Draw(sprite, transform);
             }
 
             spriteBatch.End();
