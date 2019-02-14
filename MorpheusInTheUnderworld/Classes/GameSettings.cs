@@ -25,10 +25,13 @@ namespace MorpheusInTheUnderworld.Classes
         // This method will write to a configuration.txt file.
         public static void Write()
         {
-            string[] lines = { "master_volume:" + MasterVolume,
+
+
+                string[] lines = { "master_volume:" + MasterVolume,
                                "music_volume:" + MusicVolume,
                                "effects_volume:" + EffectsVolume};
-            File.WriteAllLines(configurationPath, lines);
+                File.WriteAllLines(configurationPath, lines);
+            
         }
 
         // this method will read from a configuration.txt file
@@ -47,5 +50,6 @@ namespace MorpheusInTheUnderworld.Classes
                 EffectsVolume = Convert.ToInt32(lines[2].Split(':')[1]);
             }
         }
+       
     }
 }

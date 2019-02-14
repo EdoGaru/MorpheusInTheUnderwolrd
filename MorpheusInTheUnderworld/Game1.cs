@@ -63,7 +63,7 @@ namespace MorpheusInTheUnderworld
         protected override void Initialize()
         {
             fps = new MonoGame.Extended.FramesPerSecondCounter();
-
+            IsMouseVisible = false; // avoids doubled mouse pointer
             base.Initialize();
         }
 
