@@ -23,6 +23,7 @@ namespace MorpheusInTheUnderworld.Classes.Systems
     {
         private readonly OrthographicCamera orthographicCamera;
 
+        private ComponentMapper<Player> playerMapper;
         private ComponentMapper<Enemy> enemyMapper;
         private ComponentMapper<AnimatedSprite> spriteMapper;
         private ComponentMapper<Transform2> transformMapper;
@@ -38,11 +39,11 @@ namespace MorpheusInTheUnderworld.Classes.Systems
 
         public override void Initialize(IComponentMapperService mapperService)
         {
+            playerMapper = mapperService.GetMapper<Player>();
             enemyMapper = mapperService.GetMapper<Enemy>();
             spriteMapper = mapperService.GetMapper<AnimatedSprite>();
             transformMapper = mapperService.GetMapper<Transform2>();
             bodyMapper = mapperService.GetMapper<Body>();
-
         }
 
         public override void Process(GameTime gameTime, int entityId)
@@ -53,52 +54,46 @@ namespace MorpheusInTheUnderworld.Classes.Systems
             var body = bodyMapper.Get(entityId);
             var keyboardState = KeyboardExtended.GetState();
 
-            /*
-            if (keyboardState.IsKeyDown(Keys.Right))
+            //if (!player.IsAttacking)
+            //{
+            //    if (body.Velocity.X > 0 || body.Velocity.X < 0)
+            //        player.State = State.Walking;
+
+            //    //if (body.Velocity.Y < 0)
+            //    //    player.State = State.Jumping;
+
+            //    //if (body.Velocity.Y > 0)
+            //    //    player.State = State.Falling;
+
+            //    if (body.Velocity.EqualsWithTolerence(Vector2.Zero, 5))
+            //        player.State = State.Idle;
+            //}
+
+            if (enemy.OnCombat&&!MusicPlayer.GotBeat())
             {
-                body.Velocity.X += 150;
-                player.Facing = Facing.Right;
+
+                enemy.State = State.Combat;
+
             }
-
-            if (keyboardState.IsKeyDown(Keys.Left))
-            {
-                body.Velocity.X -= 150;
-                player.Facing = Facing.Left;
-            }
-
-            if (!player.IsAttacking)
-            {
-                if (body.Velocity.X > 0 || body.Velocity.X < 0)
-                    player.State = State.Walking;
-
-                //if (body.Velocity.Y < 0)
-                //    player.State = State.Jumping;
-
-                //if (body.Velocity.Y > 0)
-                //    player.State = State.Falling;
-
-                if (body.Velocity.EqualsWithTolerence(Vector2.Zero, 5))
-                    player.State = State.Idle;
-            }
-
-            switch (player.State)
+            switch (enemy.State)
             {
                 case State.Walking:
                     sprite.Play("walk");
-                    sprite.Effect = player.Facing == Facing.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+                    sprite.Effect = enemy.Facing == Facing.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
                     break;
                 case State.Idle:
                     sprite.Play("idle");
+                    sprite.Effect = enemy.Facing == Facing.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
                     break;
                 case State.Combat:
-                    //   ScreenManager.LoadScreen(new CombatScreen(Game), new FadeTransition(GraphicsDevice, Color.Black, 0.5f));
+                    sprite.Play("combat", () => { enemy.State = State.Idle; });
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
         //    body.Velocity.X *= 0.7f;
-        */
+        
       
         }
     }

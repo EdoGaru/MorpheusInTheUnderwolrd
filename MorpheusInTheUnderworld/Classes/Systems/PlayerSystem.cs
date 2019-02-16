@@ -27,7 +27,7 @@ namespace MorpheusInTheUnderworld.Classes.Systems
         private ComponentMapper<AnimatedSprite> spriteMapper;
         private ComponentMapper<Transform2> transformMapper;
         private ComponentMapper<Body> bodyMapper;
-
+        private ComponentMapper<Health> healthMapper;
         
 
         // This System only filter types of Body, Player, Transform2 and AnimatedSprite
@@ -43,9 +43,15 @@ namespace MorpheusInTheUnderworld.Classes.Systems
             spriteMapper = mapperService.GetMapper<AnimatedSprite>();
             transformMapper = mapperService.GetMapper<Transform2>();
             bodyMapper = mapperService.GetMapper<Body>();
+            healthMapper = mapperService.GetMapper<Health>();
 
         }
-
+        KeyboardState lastKeyboardState;
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            
+        }
         public override void Process(GameTime gameTime, int entityId)
         {
             var player = playerMapper.Get(entityId);
@@ -53,34 +59,22 @@ namespace MorpheusInTheUnderworld.Classes.Systems
             var transform = transformMapper.Get(entityId);
             var body = bodyMapper.Get(entityId);
             var keyboardState = KeyboardExtended.GetState();
-
-
-            if (player.CanJump)
-            {
-                if (keyboardState.WasKeyJustDown(Keys.Up))
-                    body.Velocity.Y -= 550 + Math.Abs(body.Velocity.X) * 0.4f;
-
-                //if (keyboardState.WasKeyJustUp(Keys.Z))
-                //{
-                //    body.Velocity.Y -= 550 + Math.Abs(body.Velocity.X) * 0.4f;
-                //    player.State = player.State == State.Idle ? State.Punching : State.Kicking;
-                //}
-            }
-
-            if (keyboardState.IsKeyDown(Keys.Right))
-            {
-                body.Velocity.X += 150;
-                player.Facing = Facing.Right;
-            }
-
-            if (keyboardState.IsKeyDown(Keys.Left))
-            {
-                body.Velocity.X -= 150;
-                player.Facing = Facing.Left;
-            }
+            var health = healthMapper.Get(entityId);
 
             if (!player.IsAttacking)
             {
+                if (keyboardState.IsKeyDown(Keys.Right))
+                {
+                    body.Velocity.X += 150;
+                    player.Facing = Facing.Right;
+                }
+
+                if (keyboardState.IsKeyDown(Keys.Left))
+                {
+                    body.Velocity.X -= 150;
+                    player.Facing = Facing.Left;
+                }
+
                 if (body.Velocity.X > 0 || body.Velocity.X < 0)
                     player.State = State.Walking;
 
@@ -93,7 +87,30 @@ namespace MorpheusInTheUnderworld.Classes.Systems
                 if (body.Velocity.EqualsWithTolerence(Vector2.Zero, 5))
                     player.State = State.Idle;
             }
+            if(keyboardState.IsKeyDown(Keys.C))
+            {
+                player.State = State.Guard;
+                body.Velocity.X = 0;
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.D) && lastKeyboardState.IsKeyUp(Keys.D))
+            {
+                health.LifePoints--;
+            }
+            if (MusicPlayer.GotBeat())
+            {
+                if (Keyboard.GetState().IsKeyDown(Keys.Z) && lastKeyboardState.IsKeyUp(Keys.Z))
+                {
+                    player.State = State.Combat;
+                }
 
+                if (player.CanJump)
+                {
+                    if (Keyboard.GetState().IsKeyDown(Keys.Up) && lastKeyboardState.IsKeyUp(Keys.Up))
+                    {
+                        body.Velocity.Y -= 550 + Math.Abs(body.Velocity.X) * 0.4f;
+                    }
+                }
+            }
             switch (player.State)
             {
                 case State.Walking:
@@ -104,7 +121,10 @@ namespace MorpheusInTheUnderworld.Classes.Systems
                     sprite.Play("idle");
                     break;
                 case State.Combat:
-                 //   ScreenManager.LoadScreen(new CombatScreen(Game), new FadeTransition(GraphicsDevice, Color.Black, 0.5f));
+                    sprite.Play("combat", () => { player.State = State.Idle; });
+                    break;
+                case State.Guard:
+                    sprite.Play("guard");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -112,10 +132,12 @@ namespace MorpheusInTheUnderworld.Classes.Systems
 
             body.Velocity.X *= 0.7f;
 
+            player.ImmuneTimer = Math.Max(player.ImmuneTimer - (float)gameTime.ElapsedGameTime.TotalSeconds, 0);
             //orthographicCamera.LookAt(transform.Position);
 
             // TODO: Can we remove this?
             //transform.Position = body.Position;
+            lastKeyboardState = Keyboard.GetState();
         }
     }
 }

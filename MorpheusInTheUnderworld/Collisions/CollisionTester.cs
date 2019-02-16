@@ -16,11 +16,20 @@ namespace MorpheusInTheUnderworld.Collisions
 
             return true;
         }
-        
+        public static bool DistanceToAttack(AABB a, AABB b)
+        {
+            if (a.Max.X + 20 < b.Min.X || a.Min.X > b.Max.X)
+                return false;
+
+            if (a.Max.Y < b.Min.Y || a.Min.Y > b.Max.Y)
+                return false;
+            
+            return true;
+        }
         public static bool AabbAabb(AABB aBox, AABB bBox, Vector2 vector, out Manifold manifold)
         {
             manifold = new Manifold();
-
+            
             // Calculate half extents along x axis
             var axExtent = (aBox.Max.X - aBox.Min.X) / 2f;
             var bxExtent = (bBox.Max.X - bBox.Min.X) / 2f;

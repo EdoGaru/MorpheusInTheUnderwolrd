@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.Animations;
@@ -20,19 +21,24 @@ namespace MorpheusInTheUnderworld.Classes.Systems
     {
         private readonly SpriteBatch spriteBatch;
         private readonly OrthographicCamera camera;
+        private ComponentMapper<Player> playerMapper;
         private ComponentMapper<AnimatedSprite> animatedSpriteMapper;
         private ComponentMapper<Sprite> spriteMapper;
         private ComponentMapper<Transform2> transforMapper;
-
-        public RenderSystem(SpriteBatch spriteBatch, OrthographicCamera camera)
+        ContentManager content;
+        Effect damageEffect;
+        public RenderSystem(SpriteBatch spriteBatch, OrthographicCamera camera, ContentManager content)
          : base(Aspect.All(typeof(Transform2)).One(typeof(AnimatedSprite), typeof(Sprite)).Exclude(typeof(Tile), typeof(DotPlayer)))
         {
             this.spriteBatch = spriteBatch;
             this.camera = camera;
+            this.content = content;
+            damageEffect = content.Load<Effect>("Effects/damage_effect");
         }
 
         public override void Initialize(IComponentMapperService mapperService)
         {
+            playerMapper = mapperService.GetMapper<Player>();
             transforMapper = mapperService.GetMapper<Transform2>();
             animatedSpriteMapper = mapperService.GetMapper<AnimatedSprite>();
             spriteMapper = mapperService.GetMapper<Sprite>();
@@ -40,23 +46,36 @@ namespace MorpheusInTheUnderworld.Classes.Systems
 
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.GetViewMatrix());
 
             foreach (var entity in ActiveEntities)
             {
                 var sprite = animatedSpriteMapper.Has(entity)
-                    ? animatedSpriteMapper.Get(entity)
+                                   ? animatedSpriteMapper.Get(entity)
                     : spriteMapper.Get(entity);
                 var transform = transforMapper.Get(entity);
 
                 if(sprite is AnimatedSprite animatedSprite)
                     animatedSprite.Update(gameTime.GetElapsedSeconds());
 
+                spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.GetViewMatrix());
+               
                 spriteBatch.Draw(sprite, transform);
+                
+                spriteBatch.End();
+
+                var player = playerMapper.Get(entity);
+                if (player != null)
+                {
+                    if (player.ImmuneTimer > 1f)
+                    {
+                        spriteBatch.Begin(effect: damageEffect, transformMatrix: camera.GetViewMatrix());
+                        spriteBatch.Draw(sprite, transform);
+                        spriteBatch.End();
+                    }
+                }
 
             }
 
-            spriteBatch.End();
         }
     }
 }

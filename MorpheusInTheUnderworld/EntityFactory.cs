@@ -40,11 +40,14 @@ namespace MorpheusInTheUnderworld
             var animationFactory = new SpriteSheetAnimationFactory(dudeAtlas);
             animationFactory.Add("idle", new SpriteSheetAnimationData(new[] { 0, 1, 2, 1 }));
             animationFactory.Add("walk", new SpriteSheetAnimationData(new[] { 6, 7, 8, 9, 10, 11 }, frameDuration: 0.1f));
-            animationFactory.Add("combat", new SpriteSheetAnimationData(new[] { 17 }, frameDuration: 0.3f, isLooping: false));
+            animationFactory.Add("combat", new SpriteSheetAnimationData(new[] { 25 }, frameDuration: 0.3f, isLooping: false));
+            animationFactory.Add("guard", new SpriteSheetAnimationData(new[] { 24 } , frameDuration: 0.3f, isLooping: false));
+
             entity.Attach(new AnimatedSprite(animationFactory, "idle"));
             entity.Attach(new Transform2(position, 0, Vector2.One*4));
-            entity.Attach(new Body { Position = position, Size = new Vector2(96, 96), BodyType = BodyType.Dynamic });
+            entity.Attach(new Body { Position = position, Size = new Vector2(40, 96), BodyType = BodyType.Dynamic });
             entity.Attach(new Focusable { IsFocused = true });
+            entity.Attach(new Health() { LifePoints = 3 });
             entity.Attach(new Player());
 
             return entity;
@@ -57,14 +60,14 @@ namespace MorpheusInTheUnderworld
             var entity = _world.CreateEntity();
 
             var animationFactory = new SpriteSheetAnimationFactory(baddieAtlas);
-            animationFactory.Add("idle", new SpriteSheetAnimationData(new[] { 5,4,3,4 }));
-            animationFactory.Add("walk", new SpriteSheetAnimationData(new[] { 11,10,9,8,7,6 }, frameDuration: 0.1f));
-            animationFactory.Add("combat", new SpriteSheetAnimationData(new[] { 29 }, frameDuration: 0.3f, isLooping: false));
+            animationFactory.Add("idle", new SpriteSheetAnimationData(new[] { 0, 1, 2, 1 }));
+            animationFactory.Add("walk", new SpriteSheetAnimationData(new[] { 6, 7, 8, 9, 10, 11 }, frameDuration: 0.1f));
+            animationFactory.Add("combat", new SpriteSheetAnimationData(new[] { 25 }, frameDuration: 0.1f, isLooping: false));
             entity.Attach(new AnimatedSprite(animationFactory, "idle"));
             entity.Attach(new Transform2(position, 0, Vector2.One*4));
-            entity.Attach(new Body { Position = position, Size = new Vector2(64, 64), BodyType = BodyType.Dynamic });
-            entity.Attach(new Focusable { IsFocused = true });
-            entity.Attach(new Enemy());
+            entity.Attach(new Body { Position = position, Size = new Vector2(40, 96), BodyType = BodyType.Static});
+            entity.Attach(new Health() { LifePoints = 1 });
+            entity.Attach(new Enemy() { Facing = Facing.Left });
 
             return entity;
         }

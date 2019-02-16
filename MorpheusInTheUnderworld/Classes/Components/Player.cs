@@ -15,15 +15,18 @@ namespace MorpheusInTheUnderworld.Classes.Components
     {
         Idle,
         Walking,
-        Combat
+        Combat,
+        Guard
     }
 
     public class Player
     {
         public Facing Facing { get; set; } = Facing.Right;
         public State State { get; set; }
-        public bool IsAttacking => State == State.Combat || State == State.Combat;
+        public bool IsAttacking => State == State.Combat;
         public bool CanJump => State == State.Idle || State == State.Walking;
         public List<Shard> Shards { get; set; }
+        public bool IsDefeated { get; set; }
+        public float ImmuneTimer { get; set; }
     }
 }

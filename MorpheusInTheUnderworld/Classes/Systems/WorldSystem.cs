@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 using MonoGame.Extended.Entities;
 using MonoGame.Extended.Entities.Systems;
+using MorpheusInTheUnderworld.Classes.Components;
 using MorpheusInTheUnderworld.Collisions;
 using World = MorpheusInTheUnderworld.Collisions.World;
 
@@ -18,6 +19,7 @@ namespace MorpheusInTheUnderworld.Classes.Systems
         private readonly World _world;
         private ComponentMapper<Transform2> _transformMapper;
         private ComponentMapper<Body> _bodyMapper;
+        private ComponentMapper<Health> healthMapper;
 
         public WorldSystem()
             : base(Aspect.All(typeof(Body), typeof(Transform2)))
@@ -29,6 +31,7 @@ namespace MorpheusInTheUnderworld.Classes.Systems
         {
             _transformMapper = mapperService.GetMapper<Transform2>();
             _bodyMapper = mapperService.GetMapper<Body>();
+            healthMapper = mapperService.GetMapper<Health>();
         }
 
         protected override void OnEntityAdded(int entityId)
@@ -55,7 +58,9 @@ namespace MorpheusInTheUnderworld.Classes.Systems
         {
             var transform = _transformMapper.Get(entityId);
             var body = _bodyMapper.Get(entityId);
+            var health = healthMapper.Get(entityId);
             transform.Position = body.Position;
+            
         }
     }
 }

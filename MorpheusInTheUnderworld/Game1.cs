@@ -24,7 +24,6 @@ namespace MorpheusInTheUnderworld
         // A FramePerSecondCounter used only in Debug Mode.
         FramesPerSecondCounter fps;
 
-        MusicPlayer musicPlayer;
         BitmapFont bitmapFont;
 
         Texture2D circle32;
@@ -41,17 +40,19 @@ namespace MorpheusInTheUnderworld
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            musicPlayer = new MusicPlayer();
-            musicPlayer.Initialize();
+            MusicPlayer.Initialize();
             string currentDir = Directory.GetCurrentDirectory();
-            //musicPlayer.AddSong(currentDir + "\\Content\\117BPMKickin.mp3");
-            //musicPlayer.LoadSong(0, true);
-            //musicPlayer.Play();
+            MusicPlayer.AddSong(currentDir + "\\Content\\117BPMKickin_new.mp3");
+            MusicPlayer.BPM = 117;
 
             screenManager = Components.Add<ScreenManager>();
-
+            screenManager.DrawOrder = 99;
             GameSettings.Read();
 
+            MusicPlayer.MasterVolume = GameSettings.MasterVolume / 100f;
+            MusicPlayer.MusicVolume = (GameSettings.MusicVolume/100f) * (MusicPlayer.MasterVolume);
+            MusicPlayer.SFXVolume = (GameSettings.EffectsVolume/100f) * (MusicPlayer.MasterVolume);
+           
         }
 
         /// <summary>
@@ -76,9 +77,9 @@ namespace MorpheusInTheUnderworld
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             bitmapFont = Content.Load<BitmapFont>("Fonts/fixedsys");
-            screenManager.LoadScreen(new MainMenuScreen(this), new FadeTransition(GraphicsDevice, Color.Black, 0.5f));
             circle32 = Content.Load<Texture2D>("Graphics/circle32");
             UserInterface.Initialize(Content, BuiltinThemes.editor);
+            screenManager.LoadScreen(new MainMenuScreen(this), new FadeTransition(GraphicsDevice, Color.Black, 0.5f));
         }
 
         /// <summary>
@@ -98,10 +99,15 @@ namespace MorpheusInTheUnderworld
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            MusicPlayer.Update(gameTime);
             fps.Update(gameTime);
-            //musicPlayer.Update(gameTime);
 
             UserInterface.Active.Update(gameTime);
+
+            MusicPlayer.MasterVolume = GameSettings.MasterVolume / 100f;
+            MusicPlayer.MusicVolume = (GameSettings.MusicVolume/100f) * (MusicPlayer.MasterVolume);
+            MusicPlayer.SFXVolume = (GameSettings.EffectsVolume/100f) * (MusicPlayer.MasterVolume);
+
         }
 
 
@@ -114,9 +120,9 @@ namespace MorpheusInTheUnderworld
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             Viewport viewport = GraphicsDevice.Viewport;
+            base.Draw(gameTime);
 
 
-            UserInterface.Active.Draw(spriteBatch);
            // Only draw if we are Debugging
             #if DEBUG
             fps.Draw(gameTime);
@@ -125,7 +131,7 @@ namespace MorpheusInTheUnderworld
             spriteBatch.Begin();
             spriteBatch.DrawString(bitmapFont, fpsText, new Vector2(viewport.Width - fpsTextWidth, 0), Color.White);
             spriteBatch.End();
-            if(musicPlayer.GotBeat())
+            if(MusicPlayer.GotBeat())
             {
                 spriteBatch.Begin();
                 spriteBatch.Draw(circle32, new Rectangle((int)(viewport.Width - fpsTextWidth - 32), 8, 16, 16), Color.Red);
@@ -133,7 +139,8 @@ namespace MorpheusInTheUnderworld
             }
             #endif
 
-            base.Draw(gameTime);
+
+            UserInterface.Active.Draw(spriteBatch);
         }
     }
 }

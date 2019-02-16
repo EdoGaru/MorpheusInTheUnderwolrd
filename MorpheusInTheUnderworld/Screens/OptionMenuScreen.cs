@@ -7,6 +7,7 @@ using GeonBit.UI;
 using GeonBit.UI.Entities;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Gui;
+using MonoGame.Extended.Input;
 using MorpheusInTheUnderworld.Classes;
 
 namespace MorpheusInTheUnderworld.Screens
@@ -38,7 +39,7 @@ namespace MorpheusInTheUnderworld.Screens
             Vector2 optionsPanelSize = new Vector2(Viewport.Width / 1.2f, Viewport.Height / 1.2f);
 
             // Buttons
-            Button loadButton, saveButton, confirmButton;
+            Button loadButton, saveButton, backButton, confirmButton;
 
             // Sliders
             Slider fxSlider, musicSlider;
@@ -107,8 +108,8 @@ namespace MorpheusInTheUnderworld.Screens
             configPanel.AddChild(new HorizontalLine());
             configPanel.AddChild(loadButton = new Button("Load config", size: new Vector2(0.5f, -1)));
             configPanel.AddChild(saveButton = new Button("Save config", ButtonSkin.Default, Anchor.AutoInline, size: new Vector2(0.5f, -1)));
-
             optionsPanel.AddChild(configPanel);
+            optionsPanel.AddChild(backButton = new Button("Back", ButtonSkin.Default, Anchor.BottomCenter));
             mainPanel.AddChild(optionsPanel);
             UserInterface.Active.AddEntity(mainPanel);
 
@@ -128,6 +129,11 @@ namespace MorpheusInTheUnderworld.Screens
 
             };
 
+            backButton.OnClick = (Entity ent) =>
+            {
+                ScreenManager.LoadScreen(new MainMenuScreen(Game));
+            };
+
             void ConfirmOverwrite() // broken out into separate function because can't nest Entities
             {
                 configPanel.RemoveChild(saveButton);
@@ -141,14 +147,7 @@ namespace MorpheusInTheUnderworld.Screens
 
                 };
             }
-
-       
-                
-
-
         }
-
-        
 
         public override void UnloadContent()
         {
@@ -159,6 +158,9 @@ namespace MorpheusInTheUnderworld.Screens
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            if (KeyboardExtended.GetState().WasKeyJustDown(Microsoft.Xna.Framework.Input.Keys.Escape))
+                ScreenManager.LoadScreen(new MainMenuScreen(Game));
         }
         public override void Draw(GameTime gameTime)
         {

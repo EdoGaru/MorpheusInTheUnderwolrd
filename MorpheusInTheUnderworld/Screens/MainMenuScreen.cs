@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework;
 using System;
 using MonoGame.Extended.BitmapFonts;
 using Microsoft.Xna.Framework.Content;
+using MorpheusInTheUnderworld.Classes;
+using MonoGame.Extended.Screens.Transitions;
 
 namespace MorpheusInTheUnderworld.Screens
 {
@@ -19,7 +21,6 @@ namespace MorpheusInTheUnderworld.Screens
 
         public MainMenuScreen(Game game) : base(game)
         {
-
         }
 
         public override void Initialize()
@@ -30,14 +31,13 @@ namespace MorpheusInTheUnderworld.Screens
         public override void LoadContent()
         {
             base.LoadContent();
-            AddMenuItem("New Game!", () => { ScreenManager.LoadScreen(new GameplayScreen(Game)); });
+            AddMenuItem("New Game!", () => { ScreenManager.LoadScreen(new CutsceneScreen(Game), new FadeTransition(GraphicsDevice, Color.Black, 1.2f)); });
 #if DEBUG
             //AddMenuItem("Testing combat screen", () => { ScreenManager.LoadScreen(new CombatScreen(Game)); });
 #endif
             AddMenuItem("Options", () => { ScreenManager.LoadScreen(new OptionMenuScreen(Game)); });
 
-
-
+            AddMenuItem("Exit", () => { Game.Exit(); });
         }
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)

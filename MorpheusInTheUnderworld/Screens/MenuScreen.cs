@@ -30,6 +30,8 @@ namespace MorpheusInTheUnderworld.Screens
 
         public  Viewport Viewport { get; set; }
 
+        private Texture2D flatNightBg;
+
         protected MenuScreen(Game game) : base(game)
         {
             MenuItems = new List<MenuItem>();   
@@ -56,6 +58,7 @@ namespace MorpheusInTheUnderworld.Screens
             Viewport = GraphicsDevice.Viewport;
 
             Font = mainMenuContent.Load<BitmapFont>("Fonts/fixedsys");
+            flatNightBg = mainMenuContent.Load<Texture2D>("Graphics/Flat Night 4 BG");
         }
         
         /// <summary>
@@ -98,6 +101,7 @@ namespace MorpheusInTheUnderworld.Screens
 
             spriteBatch.Begin();
 
+            //spriteBatch.Draw(flatNightBg, new Rectangle(0, 0, Viewport.Width, Viewport.Height), Color.White);
             foreach (var menuItem in MenuItems)
                 menuItem.Draw(spriteBatch);
 
@@ -108,11 +112,12 @@ namespace MorpheusInTheUnderworld.Screens
         {
             var menuItem = new MenuItem(Font, text)
             {
-                Position = new Vector2(400, 200 + 32 * MenuItems.Count),
+                Position = new Vector2(400, 200 + 64 * MenuItems.Count),
                 Action = action
             };
 
             MenuItems.Add(menuItem);
+
         }
 
     }

@@ -17,6 +17,10 @@ using MorpheusInTheUnderworld.Classes;
 using System.IO;
 using MonoGame.Extended.Sprites;
 using MonoGame.Extended.TextureAtlases;
+using MorpheusInTheUnderworld.Collisions;
+using World = MonoGame.Extended.Entities.World;
+using MorpheusInTheUnderworld.Classes.Components;
+using MonoGame.Extended.Screens.Transitions;
 
 namespace MorpheusInTheUnderworld.Screens
 {
@@ -37,9 +41,12 @@ namespace MorpheusInTheUnderworld.Screens
         Texture2D blackTexture;
         Texture2D background;
         Sprite background_rocks;
+        Entity player;
+        List<Entity> enemies;
 
         public GameplayScreen(Game game) : base(game) 
         {
+            
         }
 
         public override void Initialize()
@@ -51,19 +58,22 @@ namespace MorpheusInTheUnderworld.Screens
             orthographicCamera = new OrthographicCamera(viewportAdapter);
             gameplayScreenContent = new ContentManager(Game.Services, "Content");
 
+            MusicPlayer.LoadSong(0, true);
             //DotPlayerSystem dotPlayerSystem = new DotPlayerSystem();
             world = new WorldBuilder()
                      .AddSystem(new WorldSystem())
-                     .AddSystem(new CameraSystem(orthographicCamera))
                      .AddSystem(new PlayerSystem(orthographicCamera))
+                     .AddSystem(new CameraSystem(orthographicCamera))
                      .AddSystem(new EnemySystem())
                      //.AddSystem(dotPlayerSystem)
                      //.AddSystem(new MapRenderSystem(spriteBatch, gameplayScreenContent))
                      //.AddSystem(new DotPlayerRenderSystem(spriteBatch))
-                     .AddSystem(new RenderSystem(spriteBatch, orthographicCamera))
+                     .AddSystem(new BackgroundSystem(spriteBatch, gameplayScreenContent))
+                     .AddSystem(new RenderSystem(spriteBatch, orthographicCamera, gameplayScreenContent))
                      .AddSystem(new TilesRenderSystem(spriteBatch, orthographicCamera))
+                     .AddSystem(new HUDRenderSystem(spriteBatch, gameplayScreenContent))
                      .Build();
-
+            world.DrawOrder = 0;
             Game.Components.Add(world);
 
             entityFactory = new EntityFactory(world, gameplayScreenContent);
@@ -90,15 +100,14 @@ namespace MorpheusInTheUnderworld.Screens
             {
                 entityFactory.CreateWall(new Vector2(i * -32, viewport.Height), 50, shadow_wall);
             }
+            player = entityFactory.CreatePlayer(new Vector2(64,(viewport.Height/2)-32));
+            enemies = new List<Entity>();
+            var enemyCount = 10;
+            for (int i = 0; i < enemyCount; i++)
+            {
+                enemies.Add(entityFactory.CreateEnemy(new Vector2(256 + (i * 512), (viewport.Height / 2) - 64)));
+            }
 
-            //Entity map = entityFactory.CreateMap(new Vector2(viewport.Width - (viewport.Width / 4)-200, viewport.Height - 300), "Content/Map/map_1.txt");
-            //entityFactory.CreateDotPlayer(map);
-
-
-            entityFactory.CreatePlayer(new Vector2(64,(viewport.Height/2)-32));
-
-            //448,224
-            
         }
         public override void LoadContent()
         {
@@ -115,17 +124,66 @@ namespace MorpheusInTheUnderworld.Screens
             Game.Components.Remove(world);
             gameplayScreenContent.Unload();
         }
+        public void CheckForCombat()
+        {
+            foreach (Entity enemy in enemies)
+            {
+                var playerRef = player.Get<Player>();
+                var enemyRef = enemy.Get<Enemy>();
+                var playerBody = player.Get<Body>();
+                var enemyBody = enemy.Get<Body>();
 
+                if (enemy.Has<Body>())
+                {
+                    if (CollisionTester.DistanceToAttack(playerBody.BoundingBox, enemyBody.BoundingBox))
+                    {
+                        enemyRef.OnCombat = true;
+                        // If player attacks
+                        if (playerRef.State == State.Combat)
+                        {
+                            var enemyHP = enemy.Get<Health>().LifePoints -= 1;
+                            if (enemyHP < 1)
+                            {
+                                enemy.Destroy();
+                                return;
+                            }
+                        }
+
+                        if (playerRef.ImmuneTimer < 1f)
+                        {
+                            if (playerRef.State != State.Guard)
+                            {
+                                if (enemyRef.State == State.Combat)
+                                {
+                                    var playerHP = player.Get<Health>().LifePoints -= 1;
+                                    playerRef.ImmuneTimer = 3.5f;
+                                    if (playerHP < 1)
+                                    {
+                                        MusicPlayer.Stop();
+                                        ScreenManager.LoadScreen(new GameOverScreen(Game), new FadeTransition(GraphicsDevice, Color.Black, 1.5f));
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                    else
+                        enemyRef.OnCombat = false;
+                }
+            }
+
+        }
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
             if(KeyboardExtended.GetState().WasKeyJustDown(Keys.Escape))
                 ScreenManager.LoadScreen(new MainMenuScreen(Game));
+
+            CheckForCombat();
         }
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
-            spriteBatch.Draw(background, new Microsoft.Xna.Framework.Rectangle(0, 0, viewport.Width, viewport.Height), Color.White);
             spriteBatch.End();
 
 

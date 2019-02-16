@@ -11,6 +11,7 @@ namespace MorpheusInTheUnderworld.Classes.Components
         public Facing Facing { get; set; } = Facing.Left;
         public State State { get; set; }
         public bool IsAttacking => State == State.Combat || State == State.Combat;
-        public bool CanJump => State == State.Idle || State == State.Walking;
+        public bool IsDefeated { get; set; }
+        public bool OnCombat { get; set; }
     }
 }
