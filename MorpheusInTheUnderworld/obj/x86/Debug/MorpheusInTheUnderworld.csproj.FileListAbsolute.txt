@@ -1229,3 +1229,17 @@ C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\Morph
 C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\back.xnb
 C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\tile_cave_bg_rock.xnb
 C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\tile_cave_platform.xnb
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\Flat Night 4 BG.xnb
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\gray heart pixel art 32x32.xnb
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\heart pixel art 32x32.xnb
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\hero_frame.xnb
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\MorpheusInTheUnderworld_MainScene.xnb
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\vk.xnb
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\wizard_frame.xnb
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\z_key.xnb
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Effects\damage_effect.xnb
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\117BPMKickin_new.mp3
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\MonoGame.Extended.Entities.pdb
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\MonoGame.Extended.pdb
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\ending_scene.xnb
+C:\Users\Edo\Documents\Visual Studio 2013\Projects\MorpheusInTheUnderworld\MorpheusInTheUnderworld\bin\Windows\x86\Debug\Content\Graphics\YeOldyNecroGuy.xnb

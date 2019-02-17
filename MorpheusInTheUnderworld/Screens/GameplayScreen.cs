@@ -21,6 +21,7 @@ using MorpheusInTheUnderworld.Collisions;
 using World = MonoGame.Extended.Entities.World;
 using MorpheusInTheUnderworld.Classes.Components;
 using MonoGame.Extended.Screens.Transitions;
+using MonoGame.Extended.BitmapFonts;
 
 namespace MorpheusInTheUnderworld.Screens
 {
@@ -43,10 +44,13 @@ namespace MorpheusInTheUnderworld.Screens
         Sprite background_rocks;
         Entity player;
         List<Entity> enemies;
+        int EnemiesCount;
+        bool isEnding = false;
 
-        public GameplayScreen(Game game) : base(game) 
+        protected BitmapFont Font { get; private set; }
+        public GameplayScreen(Game game, bool ending) : base(game) 
         {
-            
+            isEnding = ending;
         }
 
         public override void Initialize()
@@ -58,6 +62,7 @@ namespace MorpheusInTheUnderworld.Screens
             orthographicCamera = new OrthographicCamera(viewportAdapter);
             gameplayScreenContent = new ContentManager(Game.Services, "Content");
 
+            Font = gameplayScreenContent.Load<BitmapFont>("Fonts/fixedsys");
             MusicPlayer.LoadSong(0, true);
             //DotPlayerSystem dotPlayerSystem = new DotPlayerSystem();
             world = new WorldBuilder()
@@ -77,6 +82,7 @@ namespace MorpheusInTheUnderworld.Screens
             Game.Components.Add(world);
 
             entityFactory = new EntityFactory(world, gameplayScreenContent);
+
 
             var scaleRocks = 4;
             for (int i = 0; i < 30; i++)
@@ -100,14 +106,27 @@ namespace MorpheusInTheUnderworld.Screens
             {
                 entityFactory.CreateWall(new Vector2(i * -32, viewport.Height), 50, shadow_wall);
             }
-            player = entityFactory.CreatePlayer(new Vector2(64,(viewport.Height/2)-32));
-            enemies = new List<Entity>();
-            var enemyCount = 10;
-            for (int i = 0; i < enemyCount; i++)
-            {
-                enemies.Add(entityFactory.CreateEnemy(new Vector2(256 + (i * 512), (viewport.Height / 2) - 64)));
-            }
 
+            if (!isEnding)
+            {
+
+                player = entityFactory.CreatePlayer(new Vector2(64, (viewport.Height / 2) - 32));
+                enemies = new List<Entity>();
+                EnemiesCount = 10;
+                for (int i = 0; i < EnemiesCount; i++)
+                {
+                    enemies.Add(entityFactory.CreateEnemy(new Vector2(256 + (i * 512), (viewport.Height / 2) - 64)));
+                }
+            }
+            else
+            {
+                player = entityFactory.CreatePlayer(new Vector2(1024, (viewport.Height / 2) - 32));
+
+                enemies = new List<Entity>();
+                EnemiesCount = 1;
+                enemies.Add(entityFactory.CreateNecromancer(new Vector2(1024 + 256, (viewport.Height / 2) - 64)));
+                
+            }
         }
         public override void LoadContent()
         {
@@ -137,18 +156,27 @@ namespace MorpheusInTheUnderworld.Screens
                 {
                     if (CollisionTester.DistanceToAttack(playerBody.BoundingBox, enemyBody.BoundingBox))
                     {
-                        enemyRef.OnCombat = true;
-                        // If player attacks
-                        if (playerRef.State == State.Combat)
+                        // This is the collision handler for when 
+                        // Our hero hits an enemy
+                        if (enemyRef.ImmuneTimer < 1f)
                         {
-                            var enemyHP = enemy.Get<Health>().LifePoints -= 1;
-                            if (enemyHP < 1)
+                            enemyRef.OnCombat = true;
+                            // If player attacks
+                            if (playerRef.State == State.Combat)
                             {
-                                enemy.Destroy();
-                                return;
+                                var enemyHP = enemy.Get<Health>().LifePoints -= 1;
+                                enemyRef.ImmuneTimer = 3.5f;
+                                if (enemyHP < 1)
+                                {
+                                    enemy.Destroy();
+                                    enemies.Remove(enemy);
+                                    return;
+                                }
                             }
                         }
 
+                        // This is the collision handler for when 
+                        // An enemy hits our hero
                         if (playerRef.ImmuneTimer < 1f)
                         {
                             if (playerRef.State != State.Guard)
@@ -179,10 +207,18 @@ namespace MorpheusInTheUnderworld.Screens
                 ScreenManager.LoadScreen(new MainMenuScreen(Game));
 
             CheckForCombat();
+            if(enemies.Count < 1)
+            {
+                if (!isEnding)
+                    ScreenManager.LoadScreen(new CutsceneScreen(Game, Scene.Ending), new FadeTransition(GraphicsDevice, Color.Black, 1.2f));
+                else
+                    ScreenManager.LoadScreen(new CongratulationsScreen(Game), new FadeTransition(GraphicsDevice, Color.Black, 1f));
+            }
         }
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            spriteBatch.DrawString(Font, EnemiesCount - enemies.Count + "/" + EnemiesCount, new Vector2(viewport.Width / 2,0f), Color.White);
 
             spriteBatch.End();
 

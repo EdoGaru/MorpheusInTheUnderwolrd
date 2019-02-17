@@ -18,11 +18,19 @@ using System.Threading.Tasks;
 
 namespace MorpheusInTheUnderworld.Screens
 {
+
+    public enum Scene
+    {
+        Start,
+        Ending
+    }
     public class CutsceneScreen : GameScreen
     {
+
+        Scene scene;
         SpriteBatch spriteBatch;
         public ContentManager cutsceneContentManager;
-        public Texture2D mainScene;
+        public Texture2D sceneToDisplay;
 
         UserInterface previousInterface;
         UserInterface cutsceneInterface;
@@ -41,26 +49,58 @@ namespace MorpheusInTheUnderworld.Screens
         Texture2D keyboardTexture;
         Texture2D zKey;
         Image zKeyImage;
-        public CutsceneScreen(Game game)
+
+        public CutsceneScreen(Game game, Scene scene)
             :base(game)
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             cutsceneContentManager = new ContentManager(game.Services, "Content");
+            this.scene = scene;
         }
         public override void LoadContent()
         {
             base.LoadContent();
             viewport = GraphicsDevice.Viewport;
-            mainScene = cutsceneContentManager.Load<Texture2D>("Graphics/MorpheusInTheUnderworld_MainScene");
 
             heroFrame = cutsceneContentManager.Load<Texture2D>("Graphics/hero_frame");
             wizardFrame = cutsceneContentManager.Load<Texture2D>("Graphics/wizard_frame");
             keyboardTexture = cutsceneContentManager.Load<Texture2D>("Graphics/vk");
             zKey = cutsceneContentManager.Load<Texture2D>("Graphics/z_key");
-            dialogs = new string[] { "wizard: nothing we can do....",
-                                     "hero: so will she.....",
-                                     "wizard: yes..." };
+            string[] startDialogs = new string[] { "wizard: I've done everything I can for her.",
+                                     "hero: Is there no hope at all?",
+                                     "wizard: We can only pray. Unless...",
+					"hero: Yes?",
+					"wizard: Forget it. It's too dangerous.",
+					"hero: You mean... the necromancer.",
+					"wizard: He could lift the curse.",
+					"hero: I'm not afraid of his foul creatures.",
+					"wizard: You are but a humble minstrel.",
+					"wizard: Those creatures were made to dance.",
+					"hero: For the princess, I would do anything.",
+					"wizard: God go with you, my son." };
 
+            string[] endDialogs = new string[] 
+                {
+                "wizard: So you've arrived this far....",
+                "hero: Hey...",
+                "wizard: Sorry fella, but you won't get past here.",
+                "hero: What do you mean?",
+                "wizard: It turns out that i was the one who did that to her.",
+                "hero: What?!",
+                "wizard: And now it'll be your turn to perish!",
+                "hero: This place is going to be your grave..."};
+
+
+            if (scene == Scene.Start)
+            {
+                dialogs = startDialogs;
+                sceneToDisplay = cutsceneContentManager.Load<Texture2D>("Graphics/MorpheusInTheUnderworld_MainScene");
+            }
+            else
+            {
+                dialogs = endDialogs;
+                sceneToDisplay = cutsceneContentManager.Load<Texture2D>("Graphics/ending_scene");
+            }
             cutsceneInterface = new UserInterface();
             previousInterface = UserInterface.Active;
             UserInterface.Active = cutsceneInterface;
@@ -98,7 +138,7 @@ namespace MorpheusInTheUnderworld.Screens
                         break;
                 }
                 charactersElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (charactersElapsed > 0.1f)
+                if (charactersElapsed > 0.05f)
                 {
                     showZKey = false;
                     if (charactersToShow > currentDialog.Length)
@@ -108,8 +148,11 @@ namespace MorpheusInTheUnderworld.Screens
                         { inDialog++; charactersToShow = 0; dialogLabel.Text = String.Empty; }
                     }
                     else
+                    {
+                        charactersElapsed = 0f;
                         charactersToShow++;
-                    charactersElapsed = 0f;
+                    }
+
                 }
 
                 for (int i = 0; i < charactersToShow-1; i++)
@@ -119,9 +162,19 @@ namespace MorpheusInTheUnderworld.Screens
             }
             else
             {
-                ScreenManager.LoadScreen(new GameplayScreen(Game), new FadeTransition(GraphicsDevice, Color.Black));
+                if (scene == Scene.Start)
+                    ScreenManager.LoadScreen(new GameplayScreen(Game,false), new FadeTransition(GraphicsDevice, Color.Black));
+                else
+                    ScreenManager.LoadScreen(new GameplayScreen(Game, true), new FadeTransition(GraphicsDevice, Color.Black));
             }
+            if (KeyboardExtended.GetState().WasKeyJustDown(Keys.Escape))
+            {
+                if (scene == Scene.Start)
+                    ScreenManager.LoadScreen(new GameplayScreen(Game,false), new FadeTransition(GraphicsDevice, Color.Black));
+                else
+                    ScreenManager.LoadScreen(new GameplayScreen(Game, true), new FadeTransition(GraphicsDevice, Color.Black));
 
+            }
             zKeyImage.Visible = showZKey;
         }
 
@@ -130,7 +183,7 @@ namespace MorpheusInTheUnderworld.Screens
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
-            spriteBatch.Draw(mainScene, Vector2.Zero, Color.White);
+            spriteBatch.Draw(sceneToDisplay, Vector2.Zero, Color.White);
             spriteBatch.End();
         }
     }

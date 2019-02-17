@@ -31,7 +31,7 @@ namespace MorpheusInTheUnderworld.Screens
         public override void LoadContent()
         {
             base.LoadContent();
-            AddMenuItem("New Game!", () => { ScreenManager.LoadScreen(new CutsceneScreen(Game), new FadeTransition(GraphicsDevice, Color.Black, 1.2f)); });
+            AddMenuItem("New Game!", () => { ScreenManager.LoadScreen(new CutsceneScreen(Game, Scene.Start), new FadeTransition(GraphicsDevice, Color.Black, 1.2f)); });
 #if DEBUG
             //AddMenuItem("Testing combat screen", () => { ScreenManager.LoadScreen(new CombatScreen(Game)); });
 #endif

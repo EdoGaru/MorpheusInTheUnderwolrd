@@ -22,6 +22,7 @@ namespace MorpheusInTheUnderworld.Classes.Systems
         private readonly SpriteBatch spriteBatch;
         private readonly OrthographicCamera camera;
         private ComponentMapper<Player> playerMapper;
+        private ComponentMapper<Enemy> enemyMapper;
         private ComponentMapper<AnimatedSprite> animatedSpriteMapper;
         private ComponentMapper<Sprite> spriteMapper;
         private ComponentMapper<Transform2> transforMapper;
@@ -39,6 +40,7 @@ namespace MorpheusInTheUnderworld.Classes.Systems
         public override void Initialize(IComponentMapperService mapperService)
         {
             playerMapper = mapperService.GetMapper<Player>();
+            enemyMapper = mapperService.GetMapper<Enemy>();
             transforMapper = mapperService.GetMapper<Transform2>();
             animatedSpriteMapper = mapperService.GetMapper<AnimatedSprite>();
             spriteMapper = mapperService.GetMapper<Sprite>();
@@ -67,6 +69,17 @@ namespace MorpheusInTheUnderworld.Classes.Systems
                 if (player != null)
                 {
                     if (player.ImmuneTimer > 1f)
+                    {
+                        spriteBatch.Begin(effect: damageEffect, transformMatrix: camera.GetViewMatrix());
+                        spriteBatch.Draw(sprite, transform);
+                        spriteBatch.End();
+                    }
+                }
+
+                var enemy = enemyMapper.Get(entity);
+                if (enemy != null)
+                {
+                    if (enemy.ImmuneTimer > 1f)
                     {
                         spriteBatch.Begin(effect: damageEffect, transformMatrix: camera.GetViewMatrix());
                         spriteBatch.Draw(sprite, transform);

@@ -73,6 +73,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screens\CutsceneScreen.cs" />
+    <Compile Include="Screens\CongratulationsScreen.cs" />
     <Compile Include="Screens\GameOverScreen.cs" />
     <Compile Include="Screens\GameplayScreen.cs" />
     <Compile Include="Screens\MainMenuScreen.cs" />

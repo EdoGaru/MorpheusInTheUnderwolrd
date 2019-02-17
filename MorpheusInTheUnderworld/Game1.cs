@@ -131,14 +131,13 @@ namespace MorpheusInTheUnderworld
             spriteBatch.Begin();
             spriteBatch.DrawString(bitmapFont, fpsText, new Vector2(viewport.Width - fpsTextWidth, 0), Color.White);
             spriteBatch.End();
+            #endif
             if(MusicPlayer.GotBeat())
             {
                 spriteBatch.Begin();
-                spriteBatch.Draw(circle32, new Rectangle((int)(viewport.Width - fpsTextWidth - 32), 8, 16, 16), Color.Red);
+                spriteBatch.Draw(circle32, new Rectangle((int)(viewport.Width - 256), 8, 16, 16), Color.Red);
                 spriteBatch.End();
             }
-            #endif
-
 
             UserInterface.Active.Draw(spriteBatch);
         }

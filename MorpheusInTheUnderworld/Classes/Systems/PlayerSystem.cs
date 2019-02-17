@@ -102,14 +102,6 @@ namespace MorpheusInTheUnderworld.Classes.Systems
                 {
                     player.State = State.Combat;
                 }
-
-                if (player.CanJump)
-                {
-                    if (Keyboard.GetState().IsKeyDown(Keys.Up) && lastKeyboardState.IsKeyUp(Keys.Up))
-                    {
-                        body.Velocity.Y -= 550 + Math.Abs(body.Velocity.X) * 0.4f;
-                    }
-                }
             }
             switch (player.State)
             {

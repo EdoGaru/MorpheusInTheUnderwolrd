@@ -21,7 +21,7 @@ namespace MorpheusInTheUnderworld.Screens
         {
             base.LoadContent();
 
-            AddMenuItem("Play Again", () => { ScreenManager.LoadScreen(new GameplayScreen(Game)); });
+            AddMenuItem("Play Again", () => { ScreenManager.LoadScreen(new GameplayScreen(Game,false)); });
 
             AddMenuItem("Exit", () => { ScreenManager.LoadScreen(new MainMenuScreen(Game)); });
 
@@ -33,7 +33,7 @@ namespace MorpheusInTheUnderworld.Screens
 
             base.Draw(gameTime);
             spriteBatch.Begin();
-            spriteBatch.DrawString(Font, "Game Over", new Vector2(Viewport.Width / 2, 50), Color.White);
+            spriteBatch.DrawString(Font, "Game Over", new Vector2(400, 50), Color.White);
             spriteBatch.End();
         }
 

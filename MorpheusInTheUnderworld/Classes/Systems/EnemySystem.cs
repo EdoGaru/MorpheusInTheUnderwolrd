@@ -91,10 +91,10 @@ namespace MorpheusInTheUnderworld.Classes.Systems
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            enemy.ImmuneTimer = Math.Max(enemy.ImmuneTimer - (float)gameTime.ElapsedGameTime.TotalSeconds, 0);
+            //    body.Velocity.X *= 0.7f;
 
-        //    body.Velocity.X *= 0.7f;
-        
-      
+
         }
     }
 }

@@ -13,5 +13,6 @@ namespace MorpheusInTheUnderworld.Classes.Components
         public bool IsAttacking => State == State.Combat || State == State.Combat;
         public bool IsDefeated { get; set; }
         public bool OnCombat { get; set; }
+        public float ImmuneTimer { get; set; }
     }
 }
